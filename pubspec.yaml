@@ -1,0 +1,53 @@
+name: horecah
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.2+1
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.2
+  get: ^4.3.4
+  shared_preferences: ^2.0.5
+  flutter_easyloading: ^3.0.0
+  flutter_svg: ^0.21.0+1
+  flutter_staggered_grid_view: ^0.4.0
+  cached_network_image: ^3.0.0
+  google_fonts: ^2.1.0
+  carousel_slider: ^4.0.0
+  image_picker: ^0.8.4
+  another_flushbar: ^1.10.25
+  google_place: ^0.4.3
+  file_picker: ^4.2.7
+  url_launcher: ^6.0.10
+  timeago:
+  intl:
+  otp_text_field: ^1.1.0
+  photo_view: ^0.13.0
+  webview_flutter: 
+  flutter_screenutil:
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: "^0.9.2"
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/horecah-app-icon_02.png"
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/svgs/
