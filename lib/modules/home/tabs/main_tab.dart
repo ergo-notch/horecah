@@ -169,6 +169,7 @@ class MainTab extends GetView<HomeController> {
                   child: ButtonSecundary('view_all'),
                   onTap: () {
                     adController.currentCatStr = "";
+                    adController.currentCat.value = Category();
                     adController.getPostAdToFilterScreen().then((value) {
                       Get.to(() => ListAdScreen(
                         conCategoria: false,
