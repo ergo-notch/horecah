@@ -141,7 +141,7 @@ class _EditAdScreenState extends State<EditAdScreen> {
                 TitlePrincipalAds('adtype_ad'.tr),
                 DropDownButtonFormAdType(
                   listOptions: controller.getListAdType(),
-                  actualValue: controller.getListAdType()[0],
+                  actualValue: controller.currentproduct.value.adType,
                   type: EnumTypeList.typePerson,
                 ),
                 /*RadioButtonForm(
@@ -176,7 +176,7 @@ class _EditAdScreenState extends State<EditAdScreen> {
                 TitlePrincipalAds(locale == "it_IT" ? "Sottocategoria" : locale == "en_US"  ? "Subcategory" : "Subcategoría"),
                 DropDownButtonForm(
                   listOptions: subcategoryList,
-                  actualValue: subcategoryList[0],
+                  actualValue: controller.currentproduct.value.subCategory!.nameEn??"Select".tr,
                   type: EnumTypeList.subCategory,
                 ),
                 SizedBox(
@@ -513,13 +513,13 @@ class _EditAdScreenState extends State<EditAdScreen> {
                     onTap: () {
                       if (formKey.currentState!.validate()) {
                         if (controller.peopleType != '' &&
-                            controller.peopleType != 'Selezionare:') {
+                            controller.peopleType != 'Select'.tr) {
                           if (controller.city != '') {
                             if (controller
                                     .publishAdModel.value.currentCategory ==
                                 EnumCategoryList.furniture) {
                               if (controller.statusProduct != '' &&
-                                  controller.statusProduct != 'Selezionare:') {
+                                  controller.statusProduct != 'Select'.tr) {
                                 controller.updateProduct();
                                 controller.setCategory(EnumCategoryList.none);
                                 controller.getMyPostListAd();

@@ -149,7 +149,7 @@ const Map<String, String> en_US = {
 
                 //DROPDOWNS TRADUCCIONES CONDITION
 
-  'Select:': 'Select:',
+  'Select': 'Select',
   'New (never used)': 'New (never used)',
   'Like new (slightly used)': 'Like new (slightly used)',
   'Good (normal usage)': 'Good (normal usage)',

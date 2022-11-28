@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -404,6 +405,8 @@ class PublishAdController extends GetxController {
 
     final subCategories = await apiRepository.getSubCategoriesByCategory(this.currentCat.value.nameEs!);
     List<String> subCategoriesFiltersList = [];
+    print("Yair: "+'Select'.tr);
+    subCategoriesFiltersList.add('Select'.tr);
     subCategories.forEach((subCat) {
       String locale = TranslationService.locale.toString();
       subCategoriesFiltersList.add(subCat.nameEn!);
@@ -1098,6 +1101,8 @@ class PublishAdController extends GetxController {
 
     try {
 
+      print("Yair: update post");
+
       var updatedPost = await apiRepository.updateProduct(
         Products(
             title: controllerTitle.text,
@@ -1117,6 +1122,7 @@ class PublishAdController extends GetxController {
             user: this.userStrapi.value),
         this.actualProduct!.id!);
 
+    print("Yair producto:"+json.encode(updatedPost));
 
         //termino update
 
@@ -1150,6 +1156,7 @@ class PublishAdController extends GetxController {
 
       
     } catch (e) {
+      print("Yair Error: "+e.toString());
        Get.snackbar( "Error" , "error_update".tr,
           backgroundColor: ColorConstants.principalColor,
           colorText: Colors.white,

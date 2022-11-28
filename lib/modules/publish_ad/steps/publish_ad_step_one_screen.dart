@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
@@ -95,7 +97,7 @@ class PublishAdStepOneScreen extends GetView<PublishAdController> {
           child: ListView(
             children: [
                TitlePrincipalAds('adtype_ad'.tr),
-                    
+
                         DropDownButtonFormAdType(
                           listOptions: controller.getListAdType(),
                           actualValue: controller.getActualTypeAd(),
@@ -165,7 +167,7 @@ class PublishAdStepOneScreen extends GetView<PublishAdController> {
                   ),
                   onTap: () {
                     CommonWidget.showModalInfo(
-                            lang== "it_IT" ? "Sei sicuro di volver abbandonare I\'inserimento" : lang== "en_US"  ? "Are you sure you want to leave the post?" : "¿Estás seguro de que quieres dejar la publicación?" ,   
+                            lang== "it_IT" ? "Sei sicuro di volver abbandonare I\'inserimento" : lang== "en_US"  ? "Are you sure you want to leave the post?" : "¿Estás seguro de que quieres dejar la publicación?" ,
                             hasCancel: true)
                         .then((onOK) {
                       if (onOK) {
@@ -181,11 +183,17 @@ class PublishAdStepOneScreen extends GetView<PublishAdController> {
                     child: ButtonSecundary( lang== "it_IT" ? "Avanti" : lang== "en_US"  ? "Continue" : "Continuar" , ),
                   ),
                   onTap: () {
-                    if (controller.imagesToUpload.length > 0) {
-                      controller
-                          .nexStep(Routes.HOME + Routes.CREATE_AD_STEP_TWO);
-                    } else {
-                      CommonWidget.showError(lang== "it_IT" ? "Seleziona una immagini" : lang== "en_US"  ? "Select an image" : "Selecciona una imágen" ,);
+                    var imageEmpty = controller.imagesToUpload.where((element)=>element.path == "");
+                    print("Yair: "+imageEmpty.length.toString());
+                    if(controller.currentSubCatStr != 'Select'.tr){
+                      if (imageEmpty.length > 0) {
+                        controller
+                            .nexStep(Routes.HOME + Routes.CREATE_AD_STEP_TWO);
+                      } else {
+                        CommonWidget.showError(lang== "it_IT" ? "Seleziona una immagini" : lang== "en_US"  ? "Select an image" : "Selecciona una imágen" ,);
+                      }
+                    }else{
+                      CommonWidget.showError(lang== "it_IT" ? "Seleziona una Sottocategoria" : lang== "en_US"  ? "Select a Subcategory" : "Selecciona una Subcategoría" ,);
                     }
                   })
             ],

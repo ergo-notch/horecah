@@ -114,6 +114,8 @@ const Map<String, String> it_IT = {
 
 
 
+
+
                        //DROPDOWNS TRADUCCIONES PEOPLETYPE
 
   'Private': 'Privato',
@@ -128,7 +130,7 @@ const Map<String, String> it_IT = {
 
                   //DROPDOWNS TRADUCCIONES CONDITION
 
-  'Select:': 'Selezionare:',
+  'Select': 'Selezionare',
   'New (never used)': 'Nuovo (mai usato)',
   'Like new (slightly used)': 'Come nuovo (poco usato)',
   'Good (normal usage)': 'Buono (normale uso)',

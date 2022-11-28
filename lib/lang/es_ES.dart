@@ -136,7 +136,7 @@ const Map<String, String> es_ES = {
 
                 //DROPDOWNS TRADUCCIONES CONDITION
 
-  'Select:': 'Seleccionar:',
+  'Select': 'Seleccionar',
   'New (never used)': 'Nuevo (nunca usado)',
   'Like new (slightly used)': 'Como nuevo (poco usado)',
   'Good (normal usage)': 'Bueno (uso normal)',

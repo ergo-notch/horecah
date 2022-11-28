@@ -480,7 +480,7 @@ List<String> itListCondition = [
   'Usurato (ma funzionante)',
   'Danneggiato (da riparare)'
 ];
-List<String> enListCondition = ['Select:',
+List<String> enListCondition = ['Select',
                       'New (never used)',
                       'Like new (slightly used)',
                       'Good (normal usage)',

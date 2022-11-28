@@ -311,7 +311,7 @@ class _PublishAdStepTwoScreenState extends State<PublishAdStepTwoScreen> {
                   ),
                   onTap: () {
                     controller
-                        .backStep(Routes.HOME + Routes.CREATE_AD_STEP_ONE);
+                        .backStep("back");
                   }),
               InkWell(
                   child: Container(

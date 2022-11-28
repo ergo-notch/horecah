@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -181,6 +183,7 @@ class ProfileAuthenticated extends GetView<HomeController> {
      String locale = TranslationService.locale.toString();
 
     return myProducts.map<Widget>((product) {
+      print(json.encode(product));
       return Container(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         decoration: BoxDecoration(
@@ -203,17 +206,13 @@ class ProfileAuthenticated extends GetView<HomeController> {
                     ? Container(
                         height: 50,
                         width: 60,
-                        child: product.multimedia == null
-                            ? Center(
-                                child: SvgPicture.asset(
-                                'assets/svgs/icon_inbox.svg',
-                                color: Colors.grey.shade400,
-                                width: 30,
-                              ))
-                            : CachedNetworkImage(
-                                imageUrl: product.multimedia!.first.url,
-                                fit: BoxFit.cover),
-                      )
+                        child:
+                        product.multimedia != null
+                            ? product.multimedia!.isNotEmpty
+                              ? CachedNetworkImage(imageUrl: product.multimedia!.first.url, fit: BoxFit.cover)
+                              : Center(child: SvgPicture.asset('assets/svgs/icon_inbox.svg', color: Colors.grey.shade400, width: 30,))
+                            : Center(child: SvgPicture.asset('assets/svgs/icon_inbox.svg', color: Colors.grey.shade400, width: 30,))
+                    )
                     : ColorFiltered(
                         colorFilter: ColorFilter.mode(
                           Colors.grey,
@@ -222,17 +221,11 @@ class ProfileAuthenticated extends GetView<HomeController> {
                         child: Container(
                           height: 50,
                           width: 60,
-                          child: product.multimedia == null
-                              ? Center(
-                                  child: SvgPicture.asset(
-                                  'assets/svgs/icon_inbox.svg',
-                                  color: Colors.grey.shade400,
-                                  width: 30,
-                                ))
-                              : CachedNetworkImage(
-                                  imageUrl: product.multimedia?.first.url ??
-                                      "https://bitsofco.de/content/images/2018/12/broken-1.png",
-                                  fit: BoxFit.cover),
+                          child: product.multimedia != null
+                              ? product.multimedia!.isNotEmpty
+                              ? CachedNetworkImage(imageUrl: product.multimedia!.first.url, fit: BoxFit.cover)
+                              : Center(child: SvgPicture.asset('assets/svgs/icon_inbox.svg', color: Colors.grey.shade400, width: 30,))
+                              : Center(child: SvgPicture.asset('assets/svgs/icon_inbox.svg', color: Colors.grey.shade400, width: 30,))
                         ),
                       )),
             SizedBox(
@@ -410,11 +403,11 @@ class ProfileAuthenticated extends GetView<HomeController> {
                             ),
                             child: Text(
 
-                              locale == "it_IT" ? " Posiziona il tuo annuncio all'inizio, ogni ${prices.firstOptionDays} giorni per ${prices.firstOptionDuration} giorni / Costo: ${prices.firstOptionPrice} euro " 
+                              locale == "it_IT" ? " Posiziona il tuo annuncio all'inizio, ogni ${prices.firstOptionDays} giorni per ${prices.firstOptionDuration} giorni / Costo: ${prices.firstOptionPrice} euro "
                               : locale == "en_US"  ? "Position your ad at the beginning, every ${prices.firstOptionDays} days for ${prices.firstOptionDuration} days / Cost: ${prices.firstOptionPrice} euros "
                                : "Posiciona tu anuncio al principio, cada ${prices.firstOptionDays} días durante ${prices.firstOptionDuration} días / Costo: ${prices.firstOptionPrice} euros" ,
 
-                              
+
                               style: TextStyle(
                                   color: Colors.white, fontSize: 14.0.sp),
                             )),
@@ -445,7 +438,7 @@ class ProfileAuthenticated extends GetView<HomeController> {
                             style: TextButton.styleFrom(
                                 backgroundColor: ColorConstants.principalColor),
                             child: Text(
-                              locale == "it_IT" ? " Posiziona il tuo annuncio all'inizio, ogni ${prices.secondOptionDays} giorni per ${prices.secondOptionDuration} giorni / Costo: ${prices.secondOptionPrice} euro " 
+                              locale == "it_IT" ? " Posiziona il tuo annuncio all'inizio, ogni ${prices.secondOptionDays} giorni per ${prices.secondOptionDuration} giorni / Costo: ${prices.secondOptionPrice} euro "
                               : locale == "en_US"  ? "Position your ad at the beginning, every ${prices.secondOptionDays} days for ${prices.secondOptionDuration} days / Cost: ${prices.secondOptionPrice} euros "
                                : "Posiciona tu anuncio al principio, cada ${prices.secondOptionDays} días durante ${prices.secondOptionDuration} días / Costo: ${prices.secondOptionPrice} euros" ,
                               style: TextStyle(
@@ -478,7 +471,7 @@ class ProfileAuthenticated extends GetView<HomeController> {
                             style: TextButton.styleFrom(
                                 backgroundColor: ColorConstants.principalColor),
                             child: Text(
-                               locale == "it_IT" ? " Posiziona il tuo annuncio ${prices.thirdOptionDays} volta al giorno per ${prices.thirdOptionDuration} giorni / Costo: ${prices.thirdOptionPrice} euro " 
+                               locale == "it_IT" ? " Posiziona il tuo annuncio ${prices.thirdOptionDays} volta al giorno per ${prices.thirdOptionDuration} giorni / Costo: ${prices.thirdOptionPrice} euro "
                               : locale == "en_US"  ? "Position your ad ${prices.thirdOptionDays} time a day  for ${prices.thirdOptionDuration} days / Cost: ${prices.thirdOptionPrice} euros"
                                : "Posiciona tu anuncio ${prices.thirdOptionDays} vez al día durante ${prices.thirdOptionDuration} días / Costo: ${prices.thirdOptionPrice} euros" ,
                               style: TextStyle(
