@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -144,19 +146,19 @@ class _CardCustomAdState extends State<CardCustomAd> {
                               //widget.product.user = controller.userStrapi.value;
                               controller.setCurrentProduct(widget.product);
                               controller.setActualProduct(widget.product);
-                              print(widget.product.user);
                               Get.to(() => ShowAdScreen(color: widget.priceColor,));
                             }),
                       ),
                       // if(widget.product.user != null && homeController.userLogued() && controller.userStrapi.value!.id != widget.product.user!.id)
                       
-                      if( homeController.userLogued() )
+                      //if( homeController.userLogued() )
                       InkWell(
                         child: favoriteIsActive
                             ? Icon(Icons.favorite, color: Colors.red, size: 25.sp)
                             : Icon(Icons.favorite_border,
                                 color: ColorConstants.darkGray, size: 25.sp),
                         onTap: () async {
+                          print("Yair:Favorito 1");
                           if (!favoriteIsActive) {
                            
                             await controller
@@ -174,6 +176,7 @@ class _CardCustomAdState extends State<CardCustomAd> {
                           setState(() {
                             favoriteIsActive = !favoriteIsActive;
                           });
+                          controller.refreshProducts();
                         },
                       ),
                     ],

@@ -32,10 +32,9 @@ class RoomsChats {
         id: json["id"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        product: json["product"].length > 1 ? Products.fromJson(json["product"]) : null,
+        product: json["product"].length > 1 ? Products.fromJsonForChat(json["product"]) : null,
         usersRoom: List<UserStrapi>.from(json["users_room"].map((x) => UserStrapi.fromJsonUpdated(x))),
     );
-
     Map<String, dynamic> toJson() => {
         // "id": id,
         // "created_at": createdAt.toIso8601String(),

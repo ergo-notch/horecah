@@ -24,8 +24,8 @@ const Map<String, String> it_IT = {
   'create_ad_category_two': 'Scegli tra le categorie',
   'sell': 'Vendo',
   'buy': 'Compro',
-  'rent': 'Affitto',
-  "rent2" : "Noleggio",
+  'rent2': 'Affitto',
+  "rent" : "Noleggio",
 
 
 
@@ -96,20 +96,20 @@ const Map<String, String> it_IT = {
 
    //ASESOR TRADUCCION
 
-  'I am an adviser': 'Sono Consigliere',
-  'Searching an adviser': 'Cerco Consigliere',
+  'I am an adviser': 'Sono un Consulente',
+  'Searching an adviser': 'Cerco un Consulente',
 
 
    //PROVEEDOR TRADUCCION
 
-  'I am a supplier': 'Sono Fornitore',
-  'Searching a supplier': 'Cerco Fornitore',
+  'I am a supplier': 'Sono un Fornitore',
+  'Searching a supplier': 'Cerco un Fornitore',
 
 
    //EMPRENDEDOR TRADUCCION
 
-  'I am entrepreneur': 'Sono Imprenditore',
-  'Searching an entrepreneur': 'Cerco Imprenditore',
+  'I am entrepreneur': 'Sono un Imprenditore',
+  'Searching an entrepreneur': 'Cerco un Imprenditore',
 
 
 

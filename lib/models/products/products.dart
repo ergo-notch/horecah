@@ -95,6 +95,38 @@ class Products {
             : null,
       );
 
+  factory Products.fromJsonForChat(Map<String, dynamic> json) => Products(
+    id: json["id"],
+    title: json["title"],
+    description: json["description"],
+    price: json["price"].toDouble(),
+    phoneNumber: json["phone_number"] != null ? int.parse(json["phone_number"]) : 0,
+    slug: json["slug"],
+    status: json["status"],
+    statusProduct: json["status_product"] ?? "",
+    peopleType: json["people_type"] ?? "",
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+    publishedAt:  json["published_at"] == null ? false : true,
+    currency: json["currency"],
+    city: json["city"] ?? "",
+    country: json["country"] ?? "",
+    adType: json["ad_type"] ?? "",
+    //subCategory: SubCategory.fromMap(json["sub_category"]),
+    category: json["category"] ?? "",
+    user: json["user"] != null
+        ? UserStrapi.fromJsonUpdated(json["user"])
+        : null,
+    multimedia: json["multimedia"] != null
+        ? List<Multimedia>.from(
+        json["multimedia"].map((x) => Multimedia.fromJson(x)))
+        : null,
+    likes: json["likes"] != null
+        ? List<Likes>.from(
+        json["likes"].map((x) => Likes.fromJson(x)))
+        : null,
+  );
+
 
 //FOR UPDATE
 

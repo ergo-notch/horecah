@@ -201,7 +201,7 @@ class HomeController extends GetxController {
       if (rooms != null) {
         for (var i = 0; i < rooms.length; i++) {
           await getChat(rooms[i].id!).then((value) {
-            //print(value);
+            print("Yair Chat:"+jsonEncode(value));
             return rooms[i].chats = value;
           });
         }

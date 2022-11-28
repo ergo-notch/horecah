@@ -54,7 +54,7 @@ class PublishAdStepZeroScreen extends GetView<PublishAdController> {
                     List.generate(controller.allCategories.length, (index) {
                   Category cat = controller.allCategories[index];
                   String? local = TranslationService.locale.toString();
-
+                print("Yair");
                  return cat.type == "buy"
                       ? Obx(() => CardCategory(
                               local == "en_US"
@@ -208,6 +208,7 @@ class PublishAdStepZeroScreen extends GetView<PublishAdController> {
 
   Function? _showPicker(
       BuildContext context, EnumCategoryList currentCategory) {
+    print("Yair Picker");
     controller.setCategory(currentCategory);
     controller.publishAdModel.refresh();
     showModalBottomSheet(

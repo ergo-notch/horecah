@@ -286,9 +286,9 @@ class ApiRepository {
         .get('/likes?user.id=$id', headers: {"Authorization": "Bearer $token"});
     if (res.statusCode == 200) {
       List<Products> posts = [];
-      //print(res.body);
+      print(res.body);
       for (var likeItem in res.body) {
-        likeItem['product']['user'] = null;
+        //likeItem['product']['user'] = null;
         print("Lieks in product: ${likeItem['product']['likes']}");
         likeItem['product']['likes'] = [
           {
@@ -318,7 +318,7 @@ class ApiRepository {
 
     //print(res.body);
     if (res.statusCode == 200) {
-      //print("rooms:  ${res.body}");
+      print("rooms:  ${res.body}");
       return RoomsChats.fromListJson(res.body);
     }
   }

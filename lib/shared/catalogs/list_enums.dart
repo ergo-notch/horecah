@@ -77,25 +77,25 @@ Map<EnumSubCategoryList, dynamic> subCategoryMap =
 String getStringTypeAd(EnumTypeAdList enumTypeAdList) {
   switch (enumTypeAdList) {
     case EnumTypeAdList.sell:
-      return 'Vendo';
+      return 'sell';
     case EnumTypeAdList.buy:
-      return 'Compro';
+      return 'buy';
     case EnumTypeAdList.rent:
-      return 'Noleggio';
+      return 'rent';
     case EnumTypeAdList.rent2:
-      return 'Affitto';
+      return 'rent2';
     case EnumTypeAdList.supplier:
-      return 'Sono Fornitore';
+      return 'I am a supplier';
     case EnumTypeAdList.search_supplier:
-      return 'Cerco Fornitore';
+      return 'Searching a supplier';
     case EnumTypeAdList.consultant:
-      return 'Sono Consulente';
+      return 'I am an adviser';
     case EnumTypeAdList.search_consultant:
-      return 'Cerco Consulente';
+      return 'Searching an adviser';
     case EnumTypeAdList.entrepreneur:
-      return 'Sono Imprenditore';
+      return 'I am entrepreneur';
     case EnumTypeAdList.search_entrepreneur:
-      return 'Cerco Imprenditore';
+      return 'Searching an entrepreneur';
     default:
       return 'Selezionare:';
   }
@@ -130,17 +130,17 @@ EnumTypeAdList getEnumTypeAdFromString(String stringTypeAdList) {
       return EnumTypeAdList.rent;
     case 'Affitto':
       return EnumTypeAdList.rent2;
-    case 'Sono Fornitore':
+    case 'Sono un Fornitore':
       return EnumTypeAdList.supplier;
-    case 'Cerco Fornitore':
+    case 'Cerco un Fornitore':
       return EnumTypeAdList.search_supplier;
     case 'Sono Consulente':
       return EnumTypeAdList.consultant;
     case 'Cerco Consulente':
       return EnumTypeAdList.search_consultant;
-    case 'Sono Imprenditore':
+    case 'Sono un Imprenditore':
       return EnumTypeAdList.entrepreneur;
-    case 'Cerco Imprenditore':
+    case 'Cerco un Imprenditore':
       return EnumTypeAdList.search_entrepreneur;
     default:
       return EnumTypeAdList.sell;
@@ -389,16 +389,16 @@ const List<String> activityAdList = [
   'Affitto',
 ];
 const List<String> supplierAdList = [
-  'Sono Fornitore',
-  'Cerco Fornitore',
+  'Sono un Fornitore',
+  'Cerco un Fornitore',
 ];
 const List<String> consultantAdList = [
   'Sono Consulente',
   'Cerco Consulente',
 ];
 const List<String> entrepreneurAdList = [
-  'Sono Imprenditore',
-  'Cerco Imprenditore',
+  'Sono un Imprenditore',
+  'Cerco un Imprenditore',
 ];
 const List<String> furnitureSubCategoryList = [
   'Selezionare:',
@@ -495,7 +495,7 @@ List<String> esListCondition = ['Seleccionar:',
 
 //=======================ADTYPE===================================
 List<String> mueblesListIt = ["Vendo", "Compro", "Noleggio"];
-List<String> mueblesListEn = ["Sell", "Buy", "Noleggio"];
+List<String> mueblesListEn = ["sell", "buy", "rent"];
 List<String> mueblesListEs = ["Vendo", "Compro", "Rento"];
 List<String> buyListIt = ['Vendo', 'Compro', 'Affitto'];
 
@@ -503,8 +503,8 @@ List<String> buyListIt = ['Vendo', 'Compro', 'Affitto'];
 //===========PROVEDOR=================
 
 List<String> proveedorListIt = [
-  'Sono Fornitore',
-  'Cerco Fornitore',
+  'Sono un Fornitore',
+  'Cerco un Fornitore',
 ];
 
 List<String> proveedorListEn = [
@@ -522,8 +522,8 @@ List<String> proveedorListEs = [
 
 
 List<String> asesorListIt = [
-  'Sono Consigliere',
-  'Cerco Consigliere',
+  'Sono un Consulente',
+  'Cerco un Consulente',
 ];
 
 List<String> asesorListEn = [
@@ -540,8 +540,8 @@ List<String> asesorListEs = [
 
 
 List<String> emprendedorListIt = [
-  'Sono Imprenditore',
-  'Cerco Imprenditore',
+  'Sono un Imprenditore',
+  'Cerco un Imprenditore',
 ];
 
 List<String> emprendedorListEn = [
@@ -556,7 +556,7 @@ List<String> emprendedorListEs = [
 
 
 
-
+List<String> buyList = ['sell', 'buy', 'rent2'];
 List<String> buyListEs = ['Vendo', 'Compro', 'Rento'];
-List<String> buyListEn = ['Sell', 'Buy', 'Rent'];
+List<String> buyListEn = ['sell', 'buy', 'rent'];
 

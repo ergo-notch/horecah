@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +44,8 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
     timeago.setLocaleMessages('it',  locale == "it_IT" ? timeago.ItMessages() : locale == "en_US"  ? timeago.EnMessages() : timeago.EsMessages()  );
 
     Likes? like;
-    
+
+    print("Yair: Current Product Details: "+jsonEncode(controller.currentproduct));
 
     if (homeController.userLogued()) {
       if (controller.actualProduct?.likes != null && controller.actualProduct!.likes!.length > 0) {
@@ -312,7 +315,7 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
                               'tel:${controller.actualProduct!.phoneNumber}'),
                         ),
                         SizedBox( width: 10,),
-                        if( homeController.userLogued() )
+                        //if( homeController.userLogued() )
                         InkWell(
                           child: Container(
                             height: 50,
@@ -325,6 +328,7 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
                               ),
                           ),
                           onTap: () async {
+                            print("Yair:Favorito 2");
                              if (!favoriteIsActive) {
                            
                             await controller
@@ -342,6 +346,7 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
                           setState(() {
                             favoriteIsActive = !favoriteIsActive;
                           });
+                             controller.refreshProducts();
                           }
                         ),
                         SizedBox( width: 10,),

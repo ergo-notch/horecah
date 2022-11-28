@@ -585,9 +585,9 @@ class PublishAdController extends GetxController {
             : this.currentCatStr == "ASESOR"
                 ? list = asesorListEn
                 : this.currentCatStr == "ACTIVIDAD"
-                    ? list = buyListEn
+                    ? list = buyList
                     : this.currentCatStr == "FRANQUICIA"
-                        ? list = buyListEn
+                        ? list = buyList
                         : this.currentCatStr == "PROVEEDOR"
                             ? list = proveedorListEn
                             : this.currentCatStr == "EMPRENDEDOR"
@@ -947,34 +947,34 @@ class PublishAdController extends GetxController {
       }
     } else if (currentAdTypeStr == "I am a supplier" ||
         currentAdTypeStr == "Soy proveedor" ||
-        currentAdTypeStr == "Sono Fornitore") {
+        currentAdTypeStr == "Sono un Fornitore") {
       query +=
-          "&_where[ad_type_contains]=I am a supplier&_where[ad_type_contains]=Soy proveedor&_where[ad_type_contains]=Sono Fornitore";
+          "&_where[ad_type_contains]=I am a supplier&_where[ad_type_contains]=Soy proveedor&_where[ad_type_contains]=Sono un Fornitore";
     } else if (currentAdTypeStr == "Searching a supplier" ||
         currentAdTypeStr == "Busco proveedor" ||
-        currentAdTypeStr == "Cerco Fornitore") {
+        currentAdTypeStr == "Cerco un Fornitore") {
       query +=
-          "&_where[ad_type_contains]=Searching a supplier&_where[ad_type_contains]=Busco proveedor&_where[ad_type_contains]=Cerco Fornitore";
+          "&_where[ad_type_contains]=Searching a supplier&_where[ad_type_contains]=Busco proveedor&_where[ad_type_contains]=Cerco un Fornitore";
     } else if (currentAdTypeStr == "I am an adviser" ||
         currentAdTypeStr == "Soy asesor" ||
-        currentAdTypeStr == "Sono Consigliere") {
+        currentAdTypeStr == "Sono un Consulente") {
       query +=
-          "&_where[ad_type_contains]=I am an adviser&_where[ad_type_contains]=Soy asesor&_where[ad_type_contains]=Sono Consigliere";
+          "&_where[ad_type_contains]=I am an adviser&_where[ad_type_contains]=Soy asesor&_where[ad_type_contains]=Sono un Consulente";
     } else if (currentAdTypeStr == "Searching an adviser" ||
         currentAdTypeStr == "Busco asesor" ||
-        currentAdTypeStr == "Cerco Consigliere") {
+        currentAdTypeStr == "Cerco un Consulente") {
       query +=
-          "&_where[ad_type_contains]=Searching an adviser&_where[ad_type_contains]=Busco asesor&_where[ad_type_contains]=Cerco Consigliere";
+          "&_where[ad_type_contains]=Searching an adviser&_where[ad_type_contains]=Busco asesor&_where[ad_type_contains]=Cerco un Consulente";
     } else if (currentAdTypeStr == "I am entrepreneur" ||
         currentAdTypeStr == "Soy emprendedor" ||
-        currentAdTypeStr == "Sono Imprenditore") {
+        currentAdTypeStr == "Sono un Imprenditore") {
       query +=
-          "&_where[ad_type_contains]=I am entrepreneur&_where[ad_type_contains]=Soy emprendedor&_where[ad_type_contains]=Sono Imprenditore";
+          "&_where[ad_type_contains]=I am entrepreneur&_where[ad_type_contains]=Soy emprendedor&_where[ad_type_contains]=Sono un Imprenditore";
     } else if (currentAdTypeStr == "Searching an entrepreneur" ||
         currentAdTypeStr == "Busco emprendedor" ||
-        currentAdTypeStr == "Cerco Imprenditore") {
+        currentAdTypeStr == "Cerco un Imprenditore") {
       query +=
-          "&_where[ad_type_contains]=Searching an entrepreneur&_where[ad_type_contains]=Busco emprendedor&_where[ad_type_contains]=Cerco Imprenditore";
+          "&_where[ad_type_contains]=Searching an entrepreneur&_where[ad_type_contains]=Busco emprendedor&_where[ad_type_contains]=Cerco un Imprenditore";
     }
 
     /*if (cat.isNotEmpty) {

@@ -210,8 +210,10 @@ class _DropDownButtonFormAdTypeState extends State<DropDownButtonFormAdType> {
   @override
   Widget build(BuildContext context) {
     print("build dropdown adtype!!!!!!!==============");
-    
+
+
     String dropdownValue = widget.actualValue;
+    print("Yair: $dropdownValue");
 
     return DropdownButtonFormField<String>(
       value: dropdownValue,

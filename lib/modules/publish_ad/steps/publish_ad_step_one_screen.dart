@@ -32,7 +32,7 @@ class PublishAdStepOneScreen extends GetView<PublishAdController> {
   _bodyBuilder(
     List<String> subCategories,
   ) {
-    print( "CurrentCatStr from Step 1 ${controller.currentCatStr}" );
+    print( "CurrentCatStr from Step 1 ${controller.currentCatStr} ${controller.getActualTypeAd()}" );
 
     List<String>? defaultList = [
       "Sottocategoria 1",
@@ -49,16 +49,16 @@ class PublishAdStepOneScreen extends GetView<PublishAdController> {
     //=======================ADTYPE===================================
     List<String> buyListIt = ['Vendo', 'Compro', 'Affitto'];
     List<String> proveedorListIt = [
-      'Sono Fornitore',
-      'Cerco Fornitore',
+      'Sono un Fornitore',
+      'Cerco un Fornitore',
     ];
     List<String> asesorListIt = [
-      'Sono Consigliere',
-      'Cerco Consigliere',
+      'Sono un Consulente',
+      'Cerco un Consulente',
     ];
     List<String> emprendedorListIt = [
-      'Sono Imprenditore',
-      'Cerco Imprenditore',
+      'Sono un Imprenditore',
+      'Cerco un Imprenditore',
     ];
 
     List<String> buyListEn = ['Sell', 'Buy', 'Rent'];
@@ -98,7 +98,7 @@ class PublishAdStepOneScreen extends GetView<PublishAdController> {
                     
                         DropDownButtonFormAdType(
                           listOptions: controller.getListAdType(),
-                          actualValue: controller.getListAdType()[0],
+                          actualValue: controller.getActualTypeAd(),
                           type: EnumTypeList.typePerson,
                         ),
               /*RadioButtonForm(

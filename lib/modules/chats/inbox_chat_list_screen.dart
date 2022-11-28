@@ -1,22 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:horecah/modules/chats/widgets/send_chat.dart';
 import 'package:horecah/modules/home/home.dart';
 import 'package:horecah/shared/constants/constants.dart';
 import 'package:horecah/theme/theme.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-
 
 class InboxChatListScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     if (controller.userLogued()) {
       controller.getRooms();
+      print("Yair: Rooms items: " + controller.roomsChats.length.toString());
     }
-
-   
 
     return Obx(() => controller.roomsChats.length == 0
         ? Center(
@@ -110,7 +107,11 @@ class InboxChatListScreen extends GetView<HomeController> {
                                 child: Align(
                                   alignment: Alignment.topLeft,
                                   child: Text(
-                                    roomChat.chats!.last.message,
+                                    roomChat.chats != null
+                                        ? roomChat.chats!.isNotEmpty
+                                            ? roomChat.chats!.last.message
+                                            : ""
+                                        : "",
                                     overflow: TextOverflow.clip,
                                     style: ThemeConfig.bodyText2.override(
                                       color: Color(0xFF8B97A2),

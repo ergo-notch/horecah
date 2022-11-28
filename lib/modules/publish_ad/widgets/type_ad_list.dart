@@ -69,7 +69,7 @@ class TypeAdList extends GetView<PublishAdController> {
       if (controller.validateRent())
         ListTile(
             leading: new Icon(Icons.add_business_sharp, size: 25),
-            title: new Text('rent2'.tr,
+            title: new Text('rent'.tr,
                 style: ThemeConfig.subtitle1.override(
                   color: Colors.black,
                 )),
@@ -82,7 +82,7 @@ class TypeAdList extends GetView<PublishAdController> {
       if (controller.validateRent2())
         ListTile(
             leading: new Icon(Icons.add_business_sharp, size: 25),
-            title: new Text('rent'.tr,
+            title: new Text('rent2'.tr,
                 style: ThemeConfig.subtitle1.override(
                   color: Colors.black,
                 )),
@@ -95,7 +95,7 @@ class TypeAdList extends GetView<PublishAdController> {
       if (controller.validateFurniture())
         ListTile(
             leading: new Icon(Icons.local_shipping, size: 25),
-            title: new Text(   locale == "it_IT" ? "Sono Fornitore" : locale == "en_US"  ? "I am a supplier" : "Soy proveedor",
+            title: new Text(   locale == "it_IT" ? "Sono un Fornitore" : locale == "en_US"  ? "I am a supplier" : "Soy proveedor",
                 style: ThemeConfig.subtitle1.override(
                   color: Colors.black,
                 )),
@@ -108,7 +108,7 @@ class TypeAdList extends GetView<PublishAdController> {
       if (controller.validateFurniture())
         ListTile(
             leading: new Icon(Icons.search, size: 25),
-            title: new Text(locale == "it_IT" ? "Cerco Fornitore" : locale == "en_US"  ? "Searching a supplier" : "Busco proveedor",
+            title: new Text(locale == "it_IT" ? "Cerco un Fornitore" : locale == "en_US"  ? "Searching a supplier" : "Busco proveedor",
                 style: ThemeConfig.subtitle1.override(
                   color: Colors.black,
                 )),
@@ -121,7 +121,7 @@ class TypeAdList extends GetView<PublishAdController> {
       if (controller.validateConsultant())
         ListTile(
             leading: new Icon(Icons.business_center, size: 25),
-            title: new Text(locale == "it_IT" ? "Sono Consigliere" : locale == "en_US"  ? "I am an adviser" : "Soy asesor",
+            title: new Text(locale == "it_IT" ? "Sono un Consulente" : locale == "en_US"  ? "I am an adviser" : "Soy asesor",
                 style: ThemeConfig.subtitle1.override(
                   color: Colors.black,
                 )),
@@ -134,7 +134,7 @@ class TypeAdList extends GetView<PublishAdController> {
       if (controller.validateConsultant())
         ListTile(
             leading: new Icon(Icons.search, size: 25),
-            title: new Text(locale == "it_IT" ? "Cerco Consigliere" : locale == "en_US"  ? "Searching an adviser" : "Busco asesor",
+            title: new Text(locale == "it_IT" ? "Cerco un Consulente" : locale == "en_US"  ? "Searching an adviser" : "Busco asesor",
                 style: ThemeConfig.subtitle1.override(
                   color: Colors.black,
                 )),
@@ -147,7 +147,7 @@ class TypeAdList extends GetView<PublishAdController> {
       if (controller.validateEntrepreneur())
         ListTile(
             leading: new Icon(Icons.monetization_on, size: 25),
-            title: new Text(locale == "it_IT" ? "Sono Imprenditore" : locale == "en_US"  ? "I am entrepreneur" : "Soy emprendedor",
+            title: new Text(locale == "it_IT" ? "Sono un Imprenditore" : locale == "en_US"  ? "I am entrepreneur" : "Soy emprendedor",
                 style: ThemeConfig.subtitle1.override(
                   color: Colors.black,
                 )),
@@ -160,7 +160,7 @@ class TypeAdList extends GetView<PublishAdController> {
       if (controller.validateEntrepreneur())
         ListTile(
             leading: new Icon(Icons.search, size: 25),
-            title: new Text(locale == "it_IT" ? "Cerco Imprenditore" : locale == "en_US"  ? "Searching an entrepreneur" : "Busco emprendedor",
+            title: new Text(locale == "it_IT" ? "Cerco un Imprenditore" : locale == "en_US"  ? "Searching an entrepreneur" : "Busco emprendedor",
                 style: ThemeConfig.subtitle1.override(
                   color: Colors.black,
                 )),
