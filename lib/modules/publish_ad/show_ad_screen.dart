@@ -45,7 +45,6 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
 
     Likes? like;
 
-    print("Yair: Current Product Details: "+jsonEncode(controller.currentproduct));
 
     if (homeController.userLogued()) {
       if (controller.actualProduct?.likes != null && controller.actualProduct!.likes!.length > 0) {
@@ -58,6 +57,8 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
       }
     }
     bool favoriteIsActive = like != null;
+    bool favoriteLocalIsActive = controller.isFavoriteLocal(controller.actualProduct!);
+    print("Yair Favorito: "+favoriteLocalIsActive.toString());
 
 
 
@@ -315,8 +316,8 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
                               'tel:${controller.actualProduct!.phoneNumber}'),
                         ),
                         SizedBox( width: 10,),
-                        //if( homeController.userLogued() )
-                        InkWell(
+                      homeController.userLogued()
+                        ? InkWell(
                           child: Container(
                             height: 50,
                             width: 50,
@@ -348,7 +349,25 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
                           });
                              controller.refreshProducts();
                           }
-                        ),
+                        ): InkWell(
+                        child: favoriteLocalIsActive
+                            ? Icon(
+                            Icons.favorite, color: Colors.red, size: 25.sp)
+                            : Icon(Icons.favorite_border,
+                            color: ColorConstants.darkGray, size: 25.sp),
+                        onTap: () async {
+                          print("Yair:Favorito local 2");
+                          if (!favoriteLocalIsActive) {
+                            controller.addFavoriteLocal(controller.actualProduct!);
+                          } else {
+                            controller.removeFavoriteLocal(controller.actualProduct!);
+                          }
+                          setState(() {
+                            favoriteLocalIsActive = !favoriteLocalIsActive;
+                          });
+                          controller.refreshProducts();
+                        },
+                      ),
                         SizedBox( width: 10,),
                       if (controller.actualProduct!.phoneNumber != 0)
                         SizedBox(width: 10),

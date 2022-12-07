@@ -826,6 +826,33 @@ class PublishAdController extends GetxController {
     });
   }
 
+  /*
+  * START Local likes methods
+  * */
+
+  addFavoriteLocal(Products product) async {
+    apiRepository.addLikeLocal(product);
+    print("local like added: "+product.id.toString());
+  }
+
+  removeFavoriteLocal(Products product) async {
+    apiRepository.removeLikeLocal(product);
+    print("local like removed: "+product.id.toString());
+  }
+
+  bool isFavoriteLocal(Products product) {
+    return apiRepository.getLikesLocal(product);
+  }
+
+  getLikedPostsLocal() {
+    this.likedProducts.value = apiRepository.getProductsLikedLocal();
+  }
+
+  /*
+  * END Local likes methods
+  * */
+
+
   Future<void> getPostAdFilter() async {
     /* String cat = getActualCateogry();
     print('category: ' + cat);*/

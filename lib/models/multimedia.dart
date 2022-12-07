@@ -67,7 +67,7 @@ class Multimedia {
         ext: json["ext"],
         mime: json["mime"],
         size: json["size"].toDouble(),
-        url: ApiConstants.baseUrl+json["url"],
+        url: json["url"].toString().contains("http")?json["url"]:ApiConstants.baseUrl+json["url"],
         previewUrl: json["previewUrl"],
         provider: json["provider"],
         providerMetadata: json["provider_metadata"],

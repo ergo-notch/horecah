@@ -119,7 +119,7 @@ class Category {
         nameEn: json["name_en"],
         nameEs: json["name_es"],
         nameIt: json["name_it"],
-        color: hexToColor(json["color"]),
+        color: json["color"]!=null?hexToColor(json["color"]):null,
         icon: IconData(json["icon"], fontFamily: "MaterialIcons"),
         type: json["type"]
       );
@@ -133,10 +133,12 @@ class Category {
         "name_en": nameEn,
         "name_es": nameEs,
         "name_it": nameIt,
-        //"color": color,
+        "color": color!=null ? '#${color?.value.toRadixString(16)}':null,
         "icon": icon!.codePoint,
         "type": type
       };
+
+
 
   String get name{
     String? local = TranslationService.locale.toString();

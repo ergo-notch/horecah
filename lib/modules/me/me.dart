@@ -43,9 +43,9 @@ class Me extends GetView<HomeController> {
                       // fontWeight: FontWeight.w600,
                     ),
                   ),
-                  onTap: () {
-                    controller.signout();
-                  })
+                  onTap: () =>
+                    controller.signout()
+                  )
             ],
           ),
         ),

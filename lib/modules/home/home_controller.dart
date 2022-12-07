@@ -114,7 +114,7 @@ class HomeController extends GetxController {
   void signout() {
     var prefs = Get.find<SharedPreferences>();
     prefs.clear();
-    // NavigatorHelper.popLastScreens(popCount: 1);
+    //NavigatorHelper.popLastScreens(popCount: 1);
     this.userStrapi.value = null;
     Get.toNamed(Routes.HOME);
   }

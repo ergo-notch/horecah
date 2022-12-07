@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:horecah/models/products/products.dart';
 import 'package:horecah/modules/home/home.dart';
 import 'package:horecah/modules/publish_ad/publish_ad.dart';
 import 'package:horecah/modules/publish_ad/widgets/card_custom_ad.dart';
@@ -8,15 +11,19 @@ import 'package:horecah/theme/theme_data.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FavoriteTab extends GetView<PublishAdController> {
+
   @override
   Widget build(BuildContext context) {
-    var homeController = Get.find<HomeController>();
-    if(homeController.userLogued()) {
-      controller.getLikedPosts();
-    }else{
-      if(controller.likedProducts.length > 0)
-        controller.likedProducts.clear();
-    }
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      var homeController = Get.find<HomeController>();
+      if(homeController.userLogued()) {
+        controller.getLikedPosts();
+      }else{
+        controller.getLikedPostsLocal();
+        print("Yair liked products:"+controller.likedProducts.toString());
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

@@ -15,7 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CardCustomAd extends StatefulWidget {
   final Products product;
-  final Color priceColor;
+  Color priceColor;
   CardCustomAd(this.product, {this.priceColor = Colors.red});
 
   @override
@@ -38,7 +38,9 @@ class _CardCustomAdState extends State<CardCustomAd> {
   Widget build(BuildContext context) {
    
     Likes? like;
-    
+
+    //Fix color
+    widget.priceColor = widget.product.subCategory!.category!.color!;
 
     if (homeController.userLogued()) {
       if (widget.product.likes != null && widget.product.likes!.length > 0) {
@@ -51,7 +53,9 @@ class _CardCustomAdState extends State<CardCustomAd> {
       }
     }
     bool favoriteIsActive = like != null;
-
+    bool favoriteLocalIsActive = controller.isFavoriteLocal(widget.product);
+    print("Yair Favorito local 1 inicio: "+favoriteLocalIsActive.toString());
+    print("Yair current product: "+productsToJson(widget.product));
     print("===widget.product likes===== ${widget.product.likes}");
 
     return Container(
@@ -151,32 +155,51 @@ class _CardCustomAdState extends State<CardCustomAd> {
                       ),
                       // if(widget.product.user != null && homeController.userLogued() && controller.userStrapi.value!.id != widget.product.user!.id)
                       
-                      //if( homeController.userLogued() )
-                      InkWell(
-                        child: favoriteIsActive
-                            ? Icon(Icons.favorite, color: Colors.red, size: 25.sp)
-                            : Icon(Icons.favorite_border,
-                                color: ColorConstants.darkGray, size: 25.sp),
-                        onTap: () async {
-                          print("Yair:Favorito 1");
-                          if (!favoriteIsActive) {
-                           
-                            await controller
-                                .addFavorite(widget.product)
-                                .then((value) {
-                              print("VALUE:  $value");
-                              widget.product.likes = value!.likes;
+                      homeController.userLogued()
+                        ? InkWell(
+                          child: favoriteIsActive
+                              ? Icon(
+                              Icons.favorite, color: Colors.red, size: 25.sp)
+                              : Icon(Icons.favorite_border,
+                              color: ColorConstants.darkGray, size: 25.sp),
+                          onTap: () async {
+                            print("Yair:Favorito 1");
+                            if (!favoriteIsActive) {
+                              await controller
+                                  .addFavorite(widget.product)
+                                  .then((value) {
+                                print("VALUE:  $value");
+                                widget.product.likes = value!.likes;
+                              });
+                            } else {
+                              await controller
+                                  .removeFavorite(like!.id!, widget.product.id!)
+                                  .then((value) =>
+                              widget.product.likes = value!.likes);
+                            }
+                            setState(() {
+                              favoriteIsActive = !favoriteIsActive;
                             });
+                            controller.refreshProducts();
+                          },
+                        ) : InkWell(
+                        child: favoriteLocalIsActive
+                            ? Icon(
+                            Icons.favorite, color: Colors.red, size: 25.sp)
+                            : Icon(Icons.favorite_border,
+                            color: ColorConstants.darkGray, size: 25.sp),
+                        onTap: () async {
+                          print("Yair:Favorito local 1");
+                          if (!favoriteLocalIsActive) {
+                            controller.addFavoriteLocal(widget.product);
                           } else {
-                            await controller
-                                .removeFavorite(like!.id!, widget.product.id!)
-                                .then((value) =>
-                                    widget.product.likes = value!.likes);
+                            controller.removeFavoriteLocal(widget.product);
                           }
                           setState(() {
-                            favoriteIsActive = !favoriteIsActive;
+                            favoriteLocalIsActive = !favoriteLocalIsActive;
+                            print("Yair Favorito local 1: "+favoriteLocalIsActive.toString());
                           });
-                          controller.refreshProducts();
+                          controller.getLikedPostsLocal();
                         },
                       ),
                     ],

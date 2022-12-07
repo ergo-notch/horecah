@@ -286,6 +286,7 @@ class ApiRepository {
         .get('/likes?user.id=$id', headers: {"Authorization": "Bearer $token"});
     if (res.statusCode == 200) {
       List<Products> posts = [];
+      print("YAIR ");
       print(res.body);
       for (var likeItem in res.body) {
         //likeItem['product']['user'] = null;
@@ -309,6 +310,51 @@ class ApiRepository {
       return posts;
     }
   }
+
+  /*
+  * START Local likes methods
+  * */
+  addLikeLocal(Products product){
+    var likes = storage.getStringList("localLikes");
+    if(likes == null){
+      List<String> newLike = [productsToJson(product)];
+      storage.setStringList("localLikes", newLike);
+    }else{
+      likes.add(productsToJson(product));
+      storage.setStringList("localLikes", likes);
+    }
+  }
+
+  bool getLikesLocal(Products product){
+    List<String>? likes = storage.getStringList("localLikes");
+    if(likes != null) {
+      if(likes.firstWhereOrNull((element) => productsFromJsonFavorite(element).id.toString() == product.id.toString()) != null){
+        return true;
+      }else{
+        return false;
+      }
+    }else{
+     return false;
+    }
+  }
+
+  removeLikeLocal(Products product){
+    List<String>? likes = storage.getStringList("localLikes");
+    likes?.removeWhere((element) => productsFromJsonFavorite(element).id.toString() == product.id.toString());
+    storage.setStringList("localLikes", likes!);
+  }
+
+  List<Products> getProductsLikedLocal(){
+    List<String>? likes = storage.getStringList("localLikes");
+    List<Products> posts = [];
+    if(likes != null){
+      posts = likes.map((e) => productsFromJsonFavorite(e)).toList();
+    }
+    return posts;
+  }
+  /*
+  * END Local likes methods
+  * */
 
   Future<List<RoomsChats>?> getRooms(int id) async {
     String token = storage.getString(StorageConstants.token)!;
