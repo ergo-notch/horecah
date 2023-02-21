@@ -20,35 +20,33 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
-
-
-
 class ShowAdScreen extends StatefulWidget {
-  
   Color? color;
-   ShowAdScreen({ this.color });
+  ShowAdScreen({this.color});
 
   @override
   State<ShowAdScreen> createState() => _ShowAdScreenState();
 }
 
 class _ShowAdScreenState extends State<ShowAdScreen> {
-   
-
   @override
   Widget build(BuildContext context) {
-     var homeController = Get.find<HomeController>();
-  var controller = Get.find<PublishAdController>();
-     String locale = TranslationService.locale.toString();
-    timeago.setLocaleMessages('it',  locale == "it_IT" ? timeago.ItMessages() : locale == "en_US"  ? timeago.EnMessages() : timeago.EsMessages()  );
+    var homeController = Get.find<HomeController>();
+    var controller = Get.find<PublishAdController>();
+    String locale = TranslationService.locale.toString();
+    timeago.setLocaleMessages(
+        'it',
+        locale == "it_IT"
+            ? timeago.ItMessages()
+            : locale == "en_US"
+                ? timeago.EnMessages()
+                : timeago.EsMessages());
 
     Likes? like;
 
-
     if (homeController.userLogued()) {
-      if (controller.actualProduct?.likes != null && controller.actualProduct!.likes!.length > 0) {
-  
+      if (controller.actualProduct?.likes != null &&
+          controller.actualProduct!.likes!.length > 0) {
         for (var likeProd in controller.actualProduct!.likes!) {
           if (likeProd.userId == controller.userStrapi.value!.id) {
             like = likeProd;
@@ -57,20 +55,19 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
       }
     }
     bool favoriteIsActive = like != null;
-    bool favoriteLocalIsActive = controller.isFavoriteLocal(controller.actualProduct!);
-    print("Yair Favorito: "+favoriteLocalIsActive.toString());
+    bool favoriteLocalIsActive =
+        controller.isFavoriteLocal(controller.actualProduct!);
+    print("Yair Favorito: " + favoriteLocalIsActive.toString());
 
-
-
-
-   print("======LIKES CURRENT PRODUCT====== ${ controller.actualProduct?.likes }");
+    print(
+        "======LIKES CURRENT PRODUCT====== ${controller.actualProduct?.likes}");
     return WillPopScope(
       onWillPop: () async {
         controller.cleanControllerOnly();
-        Get.back();
+        // Get.back();
         Get.toNamed(Routes.HOME);
         //homeController.switchTab(0);
-        
+
         return true;
       },
       child: SafeArea(
@@ -82,7 +79,9 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
                 child: ListView(
                   children: [
                     _buildImages(controller.multimediaProduct),
-                    SizedBox(height: 20.h,),
+                    SizedBox(
+                      height: 20.h,
+                    ),
                     /* InkWell(
                         child: favoriteIsActive
                             ? Icon(Icons.favorite, color: Colors.red, size: 25.sp)
@@ -184,7 +183,8 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
                                   'coin'.tr,
                               textAlign: TextAlign.left,
                               style: ThemeConfig.title1.override(
-                                  color: widget.color, fontWeight: FontWeight.w600)),
+                                  color: widget.color,
+                                  fontWeight: FontWeight.w600)),
                           SizedBox(height: 20),
                           Text('autor_ad'.tr,
                               textAlign: TextAlign.left,
@@ -206,7 +206,8 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
                               )),
                           Obx(
                             () => Text(
-                                controller.currentproduct.value.subCategory!.nameEn!.tr,
+                                controller.currentproduct.value.subCategory!
+                                    .nameEn!.tr,
                                 textAlign: TextAlign.left,
                                 style: ThemeConfig.bodyText1),
                           ),
@@ -218,7 +219,8 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
                                 color: ColorConstants.darkGray,
                               )),
                           Obx(
-                            () => Text(controller.currentproduct.value.adType.tr,
+                            () => Text(
+                                controller.currentproduct.value.adType.tr,
                                 textAlign: TextAlign.left,
                                 style: ThemeConfig.bodyText1),
                           ),
@@ -252,13 +254,14 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
                           if (controller.publishAdModel.value.currentCategory ==
                               EnumCategoryList.furniture)
                             SizedBox(height: 5),
-                          Text('description_ad'.tr,
-                              textAlign: TextAlign.left,
-                              style: ThemeConfig.bodyText1.override(
-                                fontSize: 16.sp,
-                                color: ColorConstants.darkGray,
-                              ),
-                              ),
+                          Text(
+                            'description_ad'.tr,
+                            textAlign: TextAlign.left,
+                            style: ThemeConfig.bodyText1.override(
+                              fontSize: 16.sp,
+                              color: ColorConstants.darkGray,
+                            ),
+                          ),
                           Text(controller.controllerDescription.text,
                               textAlign: TextAlign.left,
                               style: ThemeConfig.bodyText1),
@@ -315,65 +318,77 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
                           onTap: () => CommonWidget.previewFilew(
                               'tel:${controller.actualProduct!.phoneNumber}'),
                         ),
-                        SizedBox( width: 10,),
-                      homeController.userLogued()
-                        ? InkWell(
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            child: ButtonNotFilledSecundary('',
-                              icon: favoriteIsActive
-                            ? Icon(Icons.favorite, color: Colors.red, size: 22.sp)
-                            : Icon(Icons.favorite_border,
-                                color: ColorConstants.darkGray, size: 22.sp),
-                              ),
-                          ),
-                          onTap: () async {
-                            print("Yair:Favorito 2");
-                             if (!favoriteIsActive) {
-                           
-                            await controller
-                                .addFavorite(controller.actualProduct!)
-                                .then((value) {
-                             
-                              controller.actualProduct!.likes = value!.likes;
-                            });
-                          } else {
-                            await controller
-                                .removeFavorite(like!.id!, controller.actualProduct!.id!)
-                                .then((value) =>
-                                    controller.actualProduct!.likes = value!.likes);
-                          }
-                          setState(() {
-                            favoriteIsActive = !favoriteIsActive;
-                          });
-                             controller.refreshProducts();
-                          }
-                        ): InkWell(
-                        child: favoriteLocalIsActive
-                            ? Icon(
-                            Icons.favorite, color: Colors.red, size: 25.sp)
-                            : Icon(Icons.favorite_border,
-                            color: ColorConstants.darkGray, size: 25.sp),
-                        onTap: () async {
-                          print("Yair:Favorito local 2");
-                          if (!favoriteLocalIsActive) {
-                            controller.addFavoriteLocal(controller.actualProduct!);
-                          } else {
-                            controller.removeFavoriteLocal(controller.actualProduct!);
-                          }
-                          setState(() {
-                            favoriteLocalIsActive = !favoriteLocalIsActive;
-                          });
-                          controller.refreshProducts();
-                        },
+                      SizedBox(
+                        width: 10,
                       ),
-                        SizedBox( width: 10,),
+                      homeController.userLogued()
+                          ? InkWell(
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                child: ButtonNotFilledSecundary(
+                                  '',
+                                  icon: favoriteIsActive
+                                      ? Icon(Icons.favorite,
+                                          color: Colors.red, size: 22.sp)
+                                      : Icon(Icons.favorite_border,
+                                          color: ColorConstants.darkGray,
+                                          size: 22.sp),
+                                ),
+                              ),
+                              onTap: () async {
+                                print("Yair:Favorito 2");
+                                if (!favoriteIsActive) {
+                                  await controller
+                                      .addFavorite(controller.actualProduct!)
+                                      .then((value) {
+                                    controller.actualProduct!.likes =
+                                        value!.likes;
+                                  });
+                                } else {
+                                  await controller
+                                      .removeFavorite(like!.id!,
+                                          controller.actualProduct!.id!)
+                                      .then((value) => controller
+                                          .actualProduct!.likes = value!.likes);
+                                }
+                                setState(() {
+                                  favoriteIsActive = !favoriteIsActive;
+                                });
+                                controller.refreshProducts();
+                              })
+                          : InkWell(
+                              child: favoriteLocalIsActive
+                                  ? Icon(Icons.favorite,
+                                      color: Colors.red, size: 25.sp)
+                                  : Icon(Icons.favorite_border,
+                                      color: ColorConstants.darkGray,
+                                      size: 25.sp),
+                              onTap: () async {
+                                print("Yair:Favorito local 2");
+                                if (!favoriteLocalIsActive) {
+                                  controller.addFavoriteLocal(
+                                      controller.actualProduct!);
+                                } else {
+                                  controller.removeFavoriteLocal(
+                                      controller.actualProduct!);
+                                }
+                                setState(() {
+                                  favoriteLocalIsActive =
+                                      !favoriteLocalIsActive;
+                                });
+                                controller.refreshProducts();
+                              },
+                            ),
+                      SizedBox(
+                        width: 10,
+                      ),
                       if (controller.actualProduct!.phoneNumber != 0)
                         SizedBox(width: 10),
                       controller.userStrapi.value != null &&
                               (controller.actualProduct!.user!.id ==
-                                  controller.userStrapi.value!.id) && controller.actualProduct!.publishedAt != false
+                                  controller.userStrapi.value!.id) &&
+                              controller.actualProduct!.publishedAt != false
                           ? Expanded(
                               child: InkWell(
                                 child: Container(
@@ -413,11 +428,14 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
                                       homeController.setActualRoom(
                                           controller.actualProduct!);
                                     } else {
-                                      CommonWidget.showInfo(   locale == "it_IT" ? "Devi prima registrarti" : locale == "en_US"  ? "You need to be registered" : "Debes registrarte primero");
+                                      CommonWidget.showInfo(locale == "it_IT"
+                                          ? "Devi prima accedere"
+                                          : locale == "en_US"
+                                              ? "You need to be registered"
+                                              : "Debes registrarte primero");
                                     }
                                   }),
                             ),
-                            
                     ],
                   ),
                 ),
@@ -429,9 +447,7 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
     );
   }
 
-
-
-   _buildImages(List<Multimedia> multimedia) {
+  _buildImages(List<Multimedia> multimedia) {
     return CarouselSlider(
         options: CarouselOptions(
           height: SizeConfig().screenHeight / 3,
@@ -525,25 +541,6 @@ class _ShowAdScreenState extends State<ShowAdScreen> {
           }).toList()),
     ));
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

@@ -18,7 +18,7 @@ class PublishAdScreen extends GetView<HomeController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 Icon(
+                Icon(
                   Icons.report_gmailerrorred_outlined,
                   color: ColorConstants.principalColor,
                   size: 100,
@@ -32,7 +32,9 @@ class PublishAdScreen extends GetView<HomeController> {
                     ),
                     GestureDetector(
                       onTap: () {
-                         Get.toNamed(Routes.LOGIN);
+                        // Get.toNamed(Routes.LOGIN);
+                        controller
+                            .switchTab(controller.getCurrentIndex(MainTabs.me));
                       },
                       child: Text("should_register2".tr,
                           style: GoogleFonts.getFont('Poppins',
@@ -43,7 +45,6 @@ class PublishAdScreen extends GetView<HomeController> {
                     )
                   ],
                 ),
-               
               ],
             ),
           );

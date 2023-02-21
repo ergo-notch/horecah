@@ -20,9 +20,16 @@ class AuthController extends GetxController {
   Rx<DateTime> registerBirthday = DateTime.now().obs;
   String registerGenderRadioButton = "man";
   bool registerTermsChecked = false;
+  var passwordVisible = false.obs;
   var userStrapi = Rxn<UserStrapi>();
+
   TextEditingController loginEmailController = TextEditingController();
   TextEditingController loginPasswordController = TextEditingController();
+
+  bool changePassword(bool view) {
+    this.passwordVisible.value = view;
+    return this.passwordVisible.value;
+  }
 
   String get getSelectedDate {
     return "${this.registerBirthday.value.year}-${this.registerBirthday.value.month.toString().padLeft(2, '0')}-${this.registerBirthday.value.day.toString().padLeft(2, '0')}";
@@ -75,7 +82,7 @@ class AuthController extends GetxController {
       prefs.setString(
           StorageConstants.token, this.userStrapi.value!.token.toString());
       refresh();
-       
+
       Get.toNamed(Routes.HOME);
       var controller = Get.find<HomeController>();
       controller.loadUser();

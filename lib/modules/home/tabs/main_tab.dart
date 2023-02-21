@@ -19,7 +19,7 @@ class MainTab extends GetView<HomeController> {
     print(ColorConstants.furnitureColor.value);
     final adController = Get.find<PublishAdController>();
 
-   /* if (controller.userLogued()) {
+    /* if (controller.userLogued()) {
       Future.delayed(Duration(seconds: 2), () {
         adController.getRecentlyProducts();
       });
@@ -45,6 +45,7 @@ class MainTab extends GetView<HomeController> {
 
   Widget buildGridView() {
     final adController = Get.find<PublishAdController>();
+    adController.getRecentlyProducts(controller);
 
     /*if (controller.userLogued()) {
       Future.delayed(Duration(seconds: 2), () {
@@ -172,24 +173,22 @@ class MainTab extends GetView<HomeController> {
                     adController.currentCatStr = "";
                     adController.currentCat.value = Category();
                     adController.getPostAdToFilterScreen().then((value) {
-                      Get.to(() => ListAdScreen(
-                        conCategoria: false,
-                      ),
+                      Get.to(
+                        () => ListAdScreen(
+                          conCategoria: false,
+                        ),
                       );
                     });
-                  }
-                      )
+                  })
             ],
           ),
         ),
         Obx(() {
           var postAdController = Get.find<PublishAdController>();
-
           final cards = getListAll();
           return postAdController.postReady.value == true
               ? SizedBox(
                   height: 280.h,
-                  
                   child: ListView.builder(
                     itemCount: cards.length,
                     scrollDirection: Axis.horizontal,
@@ -215,21 +214,40 @@ class MainTab extends GetView<HomeController> {
             ),
           ),
         ),
-        if (controller.userLogued())
-        FutureBuilder(
-          future: adController.getRecentlyProducts(),
-          builder: (context, snapshot) {
-          if( !snapshot.hasData ){
-            return SizedBox();
-          }else{
-              return recentlyProds();
-          }
-
-        
+        // VALIDAR QUE LOS VISTOS RECIENTES SEA IGUAL AL DE ARRIBA DE FEATURED Y VALIDAR LA CONSULTA
+        Obx(() {
+          var postAdController = Get.find<PublishAdController>();
+          final recentlyProducs = getListRecently();
+          return (postAdController.postReady.value == true ||
+                      postAdController.productsRecentlyReady.value == true) &&
+                  recentlyProducs.length > 0
+              ? SizedBox(
+                  height: 280.h,
+                  child: ListView.builder(
+                    itemCount: recentlyProducs.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) {
+                      return recentlyProducs[index];
+                    },
+                  ),
+                )
+              //Carousel(getListRecently() )
+              : Center(child: SizedBox());
         }),
-          //recentlyProds(),
-        if (!controller.userLogued())
-          /*Center(
+
+        /* if (controller.userLogued())
+          FutureBuilder(
+              future: adController.getRecentlyProducts(controller),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return SizedBox();
+                } else {
+                  return Obx(() => recentlyProds());
+                }
+              }), */
+        //recentlyProds(),
+
+        /*Center(
             child: Text(
               'You need to be logged in',
               textAlign: TextAlign.center,
@@ -239,9 +257,9 @@ class MainTab extends GetView<HomeController> {
               ),
             ),
           ),*/
-          SizedBox(
-            height: 20.h,
-          ),
+        SizedBox(
+          height: 20.h,
+        ),
         Padding(
           padding: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
           child: _cardCreateAd(),
@@ -253,43 +271,29 @@ class MainTab extends GetView<HomeController> {
     );
   }
 
-   recentlyProds()  {
+  recentlyProds() {
+    final products = getListRecently();
 
-    final products =  getListRecently();
-
-   if( products.isEmpty ){
+    if (products.isEmpty) {
       return SizedBox();
-   }else{
-    return Obx(() {
-          var postAdController = Get.find<PublishAdController>();
-          final recentlyProducs = getListRecently();
-          return postAdController.postReady.value == true || postAdController.productsRecentlyReady.value == true
-              ? 
-           SizedBox(
-                  height: 280.h,
-                  child: ListView.builder(
-                    itemCount: recentlyProducs.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (BuildContext context, int index) {
-                      return recentlyProducs[index];
-                    },
-                  ),
-                )
-              //Carousel(getListRecently() )
-              : Center(child: CircularProgressIndicator()  );
-
-
-
-
-
-
-        });
-   }
-
-
-   
-
-    
+    } else {
+      var postAdController = Get.find<PublishAdController>();
+      final recentlyProducs = getListRecently();
+      return postAdController.postReady.value == true ||
+              postAdController.productsRecentlyReady.value == true
+          ? SizedBox(
+              height: 280.h,
+              child: ListView.builder(
+                itemCount: recentlyProducs.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  return recentlyProducs[index];
+                },
+              ),
+            )
+          //Carousel(getListRecently() )
+          : Center(child: CircularProgressIndicator());
+    }
   }
 
   _cardCreateAd() {
@@ -309,8 +313,12 @@ class MainTab extends GetView<HomeController> {
     return postAdController.allProducts.length > 0
         ? postAdController.allProducts.map<Widget>((product) {
             return InkWell(
-              child: CardItemAd(product.title, product.description,
-                  product.price.round().toString(), product.multimedia![0].url),
+              child: CardItemAdLike(
+                  product.title,
+                  product.description,
+                  product.price.round().toString(),
+                  product.multimedia![0].url,
+                  product),
               onTap: () async {
                 postAdController.setCurrentProduct(product);
                 postAdController.setActualProduct(product);
@@ -319,10 +327,17 @@ class MainTab extends GetView<HomeController> {
                 postAdController.currentCatStr =
                     product.subCategory!.category!.nameEs!;
                 print("currentCatStr showAd ${postAdController.currentCatStr}");
+                if (controller.userLogued()) {
+                  await postAdController.addToRecentlyProducts(product.id!);
+                } else {
+                  await postAdController.addToRecentlyProductsLocal(product);
+                }
 
-                await postAdController.addToRecentlyProducts(product.id!);
-                postAdController.getRecentlyProducts();
-                Get.to(() => ShowAdScreen(color: Colors.red,));
+                await postAdController.getRecentlyProducts(controller);
+
+                Get.to(() => ShowAdScreen(
+                      color: Colors.red,
+                    ));
               },
             );
           }).toList()
@@ -340,25 +355,30 @@ class MainTab extends GetView<HomeController> {
     return postAdController.recentlyProducts.length > 0
         ? postAdController.recentlyProducts.map<Widget>((product) {
             return InkWell(
-              child: CardItemAd(product.title, product.description,
-                product.price.toString(), product.multimedia![0].url),
+              child: CardItemAdLike(
+                  product.title,
+                  product.description,
+                  product.price.round().toString(),
+                  product.multimedia![0].url,
+                  product),
               onTap: () async {
-                postAdController.setCurrentProduct(product);
+                await postAdController.setCurrentProduct(product);
                 postAdController.setActualProduct(product);
                 postAdController.currentCat.value =
                     product.subCategory!.category!;
                 postAdController.currentCatStr =
                     product.subCategory!.category!.nameEs!;
                 print("currentCatStr showAd ${postAdController.currentCatStr}");
-                postAdController.getRecentlyProducts();
-                await postAdController.addToRecentlyProducts(product.id!);
-                postAdController.getRecentlyProducts();
+                if (controller.userLogued()) {
+                  await postAdController.addToRecentlyProducts(product.id!);
+                } else {
+                  await postAdController.addToRecentlyProductsLocal(product);
+                }
+                await postAdController.getRecentlyProducts(controller);
                 Get.to(() => ShowAdScreen(color: Colors.red));
               },
             );
           }).toList()
-        : [
-
-          ];
+        : [];
   }
 }

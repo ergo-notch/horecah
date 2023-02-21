@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:get/get.dart';
@@ -75,7 +76,7 @@ class ApiRepository {
     print("status code!! ${res.statusCode}");
     if (res.statusCode == 200) {
       print("UPDATE SUCCESFULL!!!");
-     
+
       return Products.fromJson(res.body);
     }
   }
@@ -89,7 +90,7 @@ class ApiRepository {
     print("status code!! ${res.statusCode}");
     if (res.statusCode == 200) {
       print("UPDATE PROFILE SUCCESFULL!!!");
-       print("USER UPDATED!!!!!  ");
+      print("USER UPDATED!!!!!  ");
       print(res.body);
       return UserStrapi.fromJson2(res.body);
     }
@@ -137,7 +138,6 @@ class ApiRepository {
   }
 
   Future<List<Products>?> getPosts({String? category}) async {
-
     print("CATEGORY!!!! $category");
     String path = category == ""
         ? '/products?status=published'
@@ -145,11 +145,9 @@ class ApiRepository {
     print(path);
     final res = await apiProvider.get(path + '&_sort=created_at:DESC');
 
-   
-
     if (res.statusCode == 200) {
       //print(res.statusCode);
-     
+
       return Products.fromListJson(res.body);
     } else {
       print(res.statusCode);
@@ -163,30 +161,48 @@ class ApiRepository {
     final res = await apiProvider.get("/recently-seens?user=${id}",
         headers: {"Authorization": "Bearer $token"});
     if (res.statusCode == 200) {
-      return Products.fromListJson(res.body[0]["products"]);
+      if (res.body?.length > 0) {
+        return Products.fromListJson(res.body[0]["products"]);
+      } else {
+        return <Products>[];
+      }
     } else {
-     return <Products>[];
+      return <Products>[];
     }
   }
 
   addToRecentlyProducts(int productId) async {
-
     String? token = storage.getString(StorageConstants.token);
 
-    if(token == null)
-      return false;
+    if (token == null) return false;
 
     final res = await apiProvider.get("/recently-seens/add/$productId",
         headers: {"Authorization": "Bearer $token"});
     if (res.statusCode == 200) {
       print("============ADDED TO FAVORITES!!!!!");
       return true;
-      
+
       //return Products.fromListJson(res.body[0]["products"]);
     } else {
       print("=======NOT ADDED TO FAVORITE====");
       return false;
     }
+  }
+
+  addToRecentlyProductsLocal(Products product) async {
+    var likes = storage.getStringList("localRecently");
+    if (likes == null) {
+      List<String> newLike = [productsToJson(product)];
+      storage.setStringList("localRecently", newLike);
+    } else {
+      var exist =
+          likes.where((element) => productsToJson(product) == element).toList();
+      if (exist.length == 0) {
+        likes.add(productsToJson(product));
+        storage.setStringList("localRecently", likes);
+      }
+    }
+    return true;
   }
 
   Future<List<Category>> getAllCategories() async {
@@ -205,7 +221,7 @@ class ApiRepository {
 
   Future<List<SubCategory>> getSubCategoriesForPost(
       String nameSubCat, String lang) async {
-   /* print("name subcat   $nameSubCat");
+    /* print("name subcat   $nameSubCat");
     String field = lang == "en_US"
         ? "name_en"
         : lang == "it_IT"
@@ -230,7 +246,6 @@ class ApiRepository {
       print("======ALL PRODUCTS =======");
       print(res.statusCode);
       return Products.fromListJson(res.body);
-      
     }
   }
 
@@ -242,10 +257,8 @@ class ApiRepository {
       path,
     );
 
-
     print("==========RES DRAFT & PUBLISHED PRODUCTS ============");
     print(res.statusCode);
-
 
     if (res.statusCode == 200) {
       print(res.body);
@@ -312,42 +325,70 @@ class ApiRepository {
   }
 
   /*
+  * START Local Visit methods
+  * */
+  addVisitLocal(Products product) {
+    var likes = storage.getStringList("localVisit");
+    if (likes == null) {
+      List<String> newLike = [productsToJson(product)];
+      storage.setStringList("localVisit", newLike);
+    } else {
+      likes.add(productsToJson(product));
+      storage.setStringList("localVisit", likes);
+    }
+  }
+
+  getProductsVisitLocal() {
+    List<String>? likes = storage.getStringList("localRecently");
+    List<Products> posts = [];
+    if (likes != null) {
+      posts = likes.map((e) => productsFromJsonFavorite(e)).toList();
+    }
+    return posts;
+  }
+
+  /*
   * START Local likes methods
   * */
-  addLikeLocal(Products product){
+  addLikeLocal(Products product) {
     var likes = storage.getStringList("localLikes");
-    if(likes == null){
+    if (likes == null) {
       List<String> newLike = [productsToJson(product)];
       storage.setStringList("localLikes", newLike);
-    }else{
+    } else {
       likes.add(productsToJson(product));
       storage.setStringList("localLikes", likes);
     }
   }
 
-  bool getLikesLocal(Products product){
+  bool getLikesLocal(Products product) {
     List<String>? likes = storage.getStringList("localLikes");
-    if(likes != null) {
-      if(likes.firstWhereOrNull((element) => productsFromJsonFavorite(element).id.toString() == product.id.toString()) != null){
+    if (likes != null) {
+      if (likes.firstWhereOrNull((element) =>
+              productsFromJsonFavorite(element).id.toString() ==
+              product.id.toString()) !=
+          null) {
         return true;
-      }else{
+      } else {
         return false;
       }
-    }else{
-     return false;
+    } else {
+      return false;
     }
   }
 
-  removeLikeLocal(Products product){
+  removeLikeLocal(Products product) {
     List<String>? likes = storage.getStringList("localLikes");
-    likes?.removeWhere((element) => productsFromJsonFavorite(element).id.toString() == product.id.toString());
+    likes?.removeWhere((element) =>
+        productsFromJsonFavorite(element).id.toString() ==
+        product.id.toString());
     storage.setStringList("localLikes", likes!);
   }
 
-  List<Products> getProductsLikedLocal(){
+  List<Products> getProductsLikedLocal() {
     List<String>? likes = storage.getStringList("localLikes");
     List<Products> posts = [];
-    if(likes != null){
+    if (likes != null) {
       posts = likes.map((e) => productsFromJsonFavorite(e)).toList();
     }
     return posts;

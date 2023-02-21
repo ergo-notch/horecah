@@ -48,14 +48,14 @@ class PublishAdStepZeroScreen extends GetView<PublishAdController> {
             height: 100.h,
             //color: Colors.red,
             child: Padding(
-             padding: const EdgeInsets.symmetric( horizontal: 8.0 ),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
                 children:
                     List.generate(controller.allCategories.length, (index) {
                   Category cat = controller.allCategories[index];
                   String? local = TranslationService.locale.toString();
-                print("Yair");
-                 return cat.type == "buy"
+                  print("Yair");
+                  return cat.type == "buy"
                       ? Obx(() => CardCategory(
                               local == "en_US"
                                   ? cat.nameEn!
@@ -97,15 +97,14 @@ class PublishAdStepZeroScreen extends GetView<PublishAdController> {
             height: 100.h,
             //color: Colors.red,
             child: Padding(
-              padding: const EdgeInsets.symmetric( horizontal: 8.0 ),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
-                
                 children:
                     List.generate(controller.allCategories.length, (index) {
                   Category cat = controller.allCategories[index];
                   String? local = TranslationService.locale.toString();
 
-                 return cat.type == "business"
+                  return cat.type == "business"
                       ? Obx(() => CardCategory(
                               local == "en_US"
                                   ? cat.nameEn!

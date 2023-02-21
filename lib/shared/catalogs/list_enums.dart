@@ -8,6 +8,7 @@ enum EnumTypeList {
   typePerson,
   statusProduct
 }
+
 enum EnumCategoryList {
   none,
   furniture,
@@ -17,6 +18,7 @@ enum EnumCategoryList {
   consultant,
   entrepreneur
 }
+
 enum EnumTypeAdList {
   none,
   sell,
@@ -30,6 +32,7 @@ enum EnumTypeAdList {
   entrepreneur,
   search_entrepreneur
 }
+
 enum EnumSubCategoryList {
   none,
   baking_cooking_and_ovens,
@@ -480,25 +483,28 @@ List<String> itListCondition = [
   'Usurato (ma funzionante)',
   'Danneggiato (da riparare)'
 ];
-List<String> enListCondition = ['Select',
-                      'New (never used)',
-                      'Like new (slightly used)',
-                      'Good (normal usage)',
-                      'Worn (but working)',
-                      'Damaged (to be repaired)'];
-List<String> esListCondition = ['Seleccionar:',
-                      'Nuevo (nunca usado)',
-                      'Como nuevo (poco usado)',
-                      'Bueno (uso normal)',
-                      'Desgastado (pero trabajando)',
-                      'Dañado (para ser reparado)'];
+List<String> enListCondition = [
+  'Select',
+  'New (never used)',
+  'Like new (slightly used)',
+  'Good (normal usage)',
+  'Worn (but working)',
+  'Damaged (to be repaired)'
+];
+List<String> esListCondition = [
+  'Seleccionar:',
+  'Nuevo (nunca usado)',
+  'Como nuevo (poco usado)',
+  'Bueno (uso normal)',
+  'Desgastado (pero trabajando)',
+  'Dañado (para ser reparado)'
+];
 
 //=======================ADTYPE===================================
 List<String> mueblesListIt = ["Vendo", "Compro", "Noleggio"];
 List<String> mueblesListEn = ["sell", "buy", "rent"];
 List<String> mueblesListEs = ["Vendo", "Compro", "Rento"];
 List<String> buyListIt = ['Vendo', 'Compro', 'Affitto'];
-
 
 //===========PROVEDOR=================
 
@@ -517,9 +523,7 @@ List<String> proveedorListEs = [
   'Busco proveedor',
 ];
 
-
 //===========ASESOR=================
-
 
 List<String> asesorListIt = [
   'Sono un Consulente',
@@ -538,7 +542,6 @@ List<String> asesorListEs = [
 
 //=============EMPRENDEDOR==============================
 
-
 List<String> emprendedorListIt = [
   'Sono un Imprenditore',
   'Cerco un Imprenditore',
@@ -554,9 +557,6 @@ List<String> emprendedorListEs = [
   'Busco emprendedor',
 ];
 
-
-
 List<String> buyList = ['sell', 'buy', 'rent2'];
 List<String> buyListEs = ['Vendo', 'Compro', 'Rento'];
 List<String> buyListEn = ['sell', 'buy', 'rent'];
-

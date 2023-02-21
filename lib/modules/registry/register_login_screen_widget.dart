@@ -11,30 +11,32 @@ import 'widgets/custom_radio_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class RegisterLoginScreenWidget extends GetView<AuthController> {
   final TextEditingController textController4 = TextEditingController();
   final TextEditingController textController5 = TextEditingController();
   final FocusScopeNode _node = FocusScopeNode();
   final ScrollController _scrollController = new ScrollController();
-  
-  
+
+  // bool passwordVisible = false;
+
   @override
   Widget build(BuildContext context) {
-
     String locale = TranslationService.locale.toString();
-    
+
     return CommonWidget.getScreenSizeFontFixed(
       Scaffold(
         appBar: AppBar(
           title: Text(
-             locale == "it_IT" ? "Registrazione" : locale == "en_US"  ? "Register" : "Registrarse"  ,
+            locale == "it_IT"
+                ? "Registrazione"
+                : locale == "en_US"
+                    ? "Register"
+                    : "Registrarse",
             style: TextStyle(color: ColorConstants.white, fontSize: 20.sp),
           ),
           backgroundColor: ColorConstants.principalColor,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back,
-                size: 20, color: ColorConstants.white),
+            icon: Icon(Icons.arrow_back, size: 20, color: ColorConstants.white),
             onPressed: () => Navigator.of(context).pop(),
           ),
           iconTheme: IconThemeData(color: ColorConstants.titlePrincipal),
@@ -67,7 +69,11 @@ class RegisterLoginScreenWidget extends GetView<AuthController> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
                         child: Text(
-                          locale == "it_IT" ? "Nome" : (locale == "en_US" ) ? "Name" : "Nombre", 
+                          locale == "it_IT"
+                              ? "Nome"
+                              : (locale == "en_US")
+                                  ? "Name"
+                                  : "Nombre",
                           textAlign: TextAlign.start,
                           style: ThemeConfig.bodyText1.override(
                             color: Color(0xFF3C4858),
@@ -91,7 +97,7 @@ class RegisterLoginScreenWidget extends GetView<AuthController> {
                               return 'Devi catturare questo campo';
                             }
                             if (val.length < 5) {
-                               _scrollController.animateTo(
+                              _scrollController.animateTo(
                                 0.0,
                                 curve: Curves.easeOut,
                                 duration: const Duration(milliseconds: 300),
@@ -106,7 +112,11 @@ class RegisterLoginScreenWidget extends GetView<AuthController> {
                             fontWeight: FontWeight.normal,
                           ),
                           decoration: InputDecoration(
-                              labelText: locale == "it_IT" ? "Inserisci tuo nome" : (locale == "en_US" ) ? "Enter your name" : "Ingrese su nombre",
+                              labelText: locale == "it_IT"
+                                  ? "Inserisci tuo nome"
+                                  : (locale == "en_US")
+                                      ? "Enter your name"
+                                      : "Ingrese su nombre",
                               labelStyle: ThemeConfig.bodyText1.override(
                                 color: Color(0xFFB4B4B4),
                                 fontSize: 16,
@@ -115,8 +125,8 @@ class RegisterLoginScreenWidget extends GetView<AuthController> {
                               border: OutlineInputBorder(),
                               isDense: true,
                               errorBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.red, width: 0.7)),
+                                  borderSide: BorderSide(
+                                      color: Colors.red, width: 0.7)),
                               enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: Color(0xFFB4B4B4), width: 0.7))),
@@ -124,7 +134,12 @@ class RegisterLoginScreenWidget extends GetView<AuthController> {
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                        child: Text( locale == "it_IT" ? "Il tuo nome di utente sará visibile nel tuo profilo e nei tuoi annunci." : (locale == "en_US" ) ? "Your username will be visible on your profile and when you post an ad." : "Tu nombre de usuario será visible en tu perfíl y al realizar un anuncio." ,
+                        child: Text(
+                          locale == "it_IT"
+                              ? "Il tuo nome di utente sará visibile nel tuo profilo e nei tuoi annunci."
+                              : (locale == "en_US")
+                                  ? "Your username will be visible on your profile and when you post an ad."
+                                  : "Tu nombre de usuario será visible en tu perfíl y al realizar un anuncio.",
                           textAlign: TextAlign.start,
                           style: ThemeConfig.bodyText1.override(
                             color: Color(0xFF3C4858),
@@ -153,7 +168,7 @@ class RegisterLoginScreenWidget extends GetView<AuthController> {
                           onEditingComplete: _node.nextFocus,
                           validator: (val) {
                             if (val!.isEmpty) {
-                               _scrollController.animateTo(
+                              _scrollController.animateTo(
                                 0.0,
                                 curve: Curves.easeOut,
                                 duration: const Duration(milliseconds: 300),
@@ -161,15 +176,15 @@ class RegisterLoginScreenWidget extends GetView<AuthController> {
                               return 'Devi catturare questo campo';
                             }
                             if (val.length < 5) {
-                               _scrollController.animateTo(
+                              _scrollController.animateTo(
                                 0.0,
                                 curve: Curves.easeOut,
                                 duration: const Duration(milliseconds: 300),
                               );
                               return 'Requires at least 5 characters.';
                             }
-                            if(!Regex.isEmail(val)){
-                               _scrollController.animateTo(
+                            if (!Regex.isEmail(val)) {
+                              _scrollController.animateTo(
                                 0.0,
                                 curve: Curves.easeOut,
                                 duration: const Duration(milliseconds: 300),
@@ -193,8 +208,8 @@ class RegisterLoginScreenWidget extends GetView<AuthController> {
                               border: OutlineInputBorder(),
                               isDense: true,
                               errorBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.red, width: 0.7)),
+                                  borderSide: BorderSide(
+                                      color: Colors.red, width: 0.7)),
                               enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: Color(0xFFB4B4B4), width: 0.7))),
@@ -212,47 +227,65 @@ class RegisterLoginScreenWidget extends GetView<AuthController> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                        child: TextFormField(
-                          obscureText: true,
-                          controller: controller.registerPasswordController,
-                          onEditingComplete: _node.nextFocus,
-                          validator: (val) {
-                            if (val!.isEmpty) {
-                              return 'Devi catturare questo campo';
-                            }
-                            if (val.length < 5) {
-                              return 'Requires at least 5 characters.';
-                            }
-                            return null;
-                          },
-                          style: ThemeConfig.bodyText1.override(
-                            color: Color(0xFF3C4858),
-                            fontSize: 15,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          decoration: InputDecoration(
-                              labelText: 'login_label4'.tr,
-                              labelStyle: ThemeConfig.bodyText1.override(
-                                color: Color(0xFFB4B4B4),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w300,
+                      Obx(() => Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                            child: TextFormField(
+                              obscureText: !controller.passwordVisible.value,
+                              controller: controller.registerPasswordController,
+                              onEditingComplete: _node.nextFocus,
+                              validator: (val) {
+                                if (val!.isEmpty) {
+                                  return 'Devi catturare questo campo';
+                                }
+                                if (val.length < 5) {
+                                  return 'Requires at least 5 characters.';
+                                }
+                                return null;
+                              },
+                              style: ThemeConfig.bodyText1.override(
+                                color: Color(0xFF3C4858),
+                                fontSize: 15,
+                                fontWeight: FontWeight.normal,
                               ),
-                              border: OutlineInputBorder(),
-                              isDense: true,
-                              errorBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.red, width: 0.7)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color(0xFFB4B4B4), width: 0.7))),
-                        ),
-                      ),
+                              decoration: InputDecoration(
+                                  labelText: 'login_label4'.tr,
+                                  labelStyle: ThemeConfig.bodyText1.override(
+                                    color: Color(0xFFB4B4B4),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                  border: OutlineInputBorder(),
+                                  isDense: true,
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      controller.passwordVisible.value
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                    ),
+                                    onPressed: () {
+                                      controller.passwordVisible.value =
+                                          !controller.passwordVisible.value;
+                                      var x = controller.changePassword(
+                                          controller.passwordVisible.value);
+                                    },
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.red, width: 0.7)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Color(0xFFB4B4B4),
+                                          width: 0.7))),
+                            ),
+                          )),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
                         child: Text(
-                          locale == "it_IT" ? "Data di nascita" : (locale == "en_US" ) ? "Birthday" : "Fecha de Nacimiento" ,
+                          locale == "it_IT"
+                              ? "Data di nascita"
+                              : (locale == "en_US")
+                                  ? "Birthday"
+                                  : "Fecha de Nacimiento",
                           textAlign: TextAlign.start,
                           style: ThemeConfig.bodyText1.override(
                             color: Color(0xFF3C4858),
@@ -294,7 +327,11 @@ class RegisterLoginScreenWidget extends GetView<AuthController> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
                         child: Text(
-                          locale == "it_IT" ? "Sesso" : (locale == "en_US" ) ? "Sex" : "Sexo" ,
+                          locale == "it_IT"
+                              ? "Sesso"
+                              : (locale == "en_US")
+                                  ? "Sex"
+                                  : "Sexo",
                           textAlign: TextAlign.start,
                           style: ThemeConfig.bodyText1.override(
                             color: Color(0xFF3C4858),
@@ -306,19 +343,23 @@ class RegisterLoginScreenWidget extends GetView<AuthController> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: RadioButtonForm(
-                          options:  locale == "it_IT" ? ['Maschio', 'Femmina'] : (locale == "en_US" ) ? ['Male', 'Female'] : ['Hombre', 'Mujer'] ,        
+                          options: locale == "it_IT"
+                              ? ['Maschio', 'Femmina']
+                              : (locale == "en_US")
+                                  ? ['Male', 'Female']
+                                  : ['Hombre', 'Mujer'],
                           onChanged: (value) {
-                            if (value == 'Maschio' || value == 'Male' || value == 'Hombre') {
+                            if (value == 'Maschio' ||
+                                value == 'Male' ||
+                                value == 'Hombre') {
                               controller.registerGenderRadioButton = 'man';
                             } else {
                               controller.registerGenderRadioButton = 'woman';
                             }
                           },
                           optionHeight: 25,
-                          textStyle: ThemeConfig.bodyText1.override(
-                            color: Colors.black,
-                            fontSize: 13
-                          ),
+                          textStyle: ThemeConfig.bodyText1
+                              .override(color: Colors.black, fontSize: 13),
                           buttonPosition: RadioButtonPosition.left,
                           direction: Axis.horizontal,
                           radioButtonColor: ColorConstants.principalColor,
@@ -331,7 +372,11 @@ class RegisterLoginScreenWidget extends GetView<AuthController> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
                         child: Text(
-                           locale == "it_IT" ? "Comune" : (locale == "en_US" ) ? "Location" : "Ubicación" ,
+                          locale == "it_IT"
+                              ? "Comune"
+                              : (locale == "en_US")
+                                  ? "Location"
+                                  : "Ubicación",
                           textAlign: TextAlign.start,
                           style: ThemeConfig.bodyText1.override(
                             color: Color(0xFF3C4858),
@@ -340,11 +385,13 @@ class RegisterLoginScreenWidget extends GetView<AuthController> {
                           ),
                         ),
                       ),
-                      DropDownGooglePlaces(type: "register",),
-                       SizedBox(
-                  height: 20,
-                ),
-                     /* Padding(
+                      DropDownGooglePlaces(
+                        type: "register",
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      /* Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                         child: TextFormField(
                           controller: controller.registerAddressController,
@@ -383,7 +430,11 @@ class RegisterLoginScreenWidget extends GetView<AuthController> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                         child: Text(
-                          locale == "it_IT" ? "termini d\'uso del servizio" : locale == "en_US"  ? "Terms and conditions" : "Términos y condiciones" ,
+                          locale == "it_IT"
+                              ? "termini d\'uso del servizio"
+                              : locale == "en_US"
+                                  ? "Terms and conditions"
+                                  : "Términos y condiciones",
                           textAlign: TextAlign.start,
                           style: ThemeConfig.bodyText1.override(
                             color: ColorConstants.principalColor,
@@ -396,11 +447,13 @@ class RegisterLoginScreenWidget extends GetView<AuthController> {
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 40),
                         child: InkWell(
                           onTap: () {
-                            if (controller.registerFormKey.currentState!.validate()) {
+                            if (controller.registerFormKey.currentState!
+                                .validate()) {
                               controller.register(context);
                             }
                           },
-                          child: ButtonContinueWidget(labelButton: 'register_label'.tr),
+                          child: ButtonContinueWidget(
+                              labelButton: 'register_label'.tr),
                         ),
                       )
                     ],
@@ -417,9 +470,11 @@ class RegisterLoginScreenWidget extends GetView<AuthController> {
   void _selectDate(BuildContext context) async {
     final DateTime? selected = await showDatePicker(
       context: context,
-      initialDate: controller.registerBirthday.value,
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2025),
+      initialDate: DateTime(DateTime.now().year - 18, DateTime.now().month,
+          DateTime.now().day - 1),
+      firstDate: DateTime(1950),
+      lastDate: DateTime(DateTime.now().year - 18, DateTime.now().month,
+          DateTime.now().day - 1),
     );
     controller.updateSelectedDate(selected);
   }

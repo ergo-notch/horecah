@@ -18,16 +18,16 @@ const Map<String, String> it_IT = {
       'Dai al tuo usato una seconda occasione: vendi quello che non usi piú.',
   'place_ad': 'Pubblica il tuo annuncio',
   'loading': 'il caricamento...',
-  'create_ad_titie_create_ad': 'Per pubblicare il tuo annuncio sceglie tra le categorie',
+  'create_ad_titie_create_ad':
+      'Per pubblicare il tuo annuncio sceglie tra le categorie',
   'create_ad_subtitie_create_ad': 'Scegli tra le categorie',
-  'create_ad_category_one': 'Vendi o compri attrezzature o attività commerciali?',
+  'create_ad_category_one':
+      'Vendi o compri attrezzature o attività commerciali?',
   'create_ad_category_two': 'Scegli tra le categorie',
   'sell': 'Vendo',
   'buy': 'Compro',
   'rent2': 'Affitto',
-  "rent" : "Noleggio",
-
-
+  "rent": "Noleggio",
 
   //SHOW AD SCREEN
   'autor_ad': 'Pubblicato da',
@@ -42,13 +42,14 @@ const Map<String, String> it_IT = {
   //FILTROS
   'apply': 'Applica',
   'filter': 'Filtri',
-  'search_anything': 'Cerca qualsiasi cosa',
+  /* 'search_anything': 'Cerca qualsiasi cosa', */
+  'search_anything': 'Cerca',
   'write_anything': 'Qualsiasi cosa',
   'money_range': 'Fascia di prezzo',
   'no_ad': 'Non ci sono annunci pubblicati',
 
-   //NAVBAR
-   'label1_nav': 'Home',
+  //NAVBAR
+  'label1_nav': 'Home',
   'label2_nav': 'Preferiti',
   'label3_nav': 'Pubblica',
   'label4_nav': 'Messaggi',
@@ -59,76 +60,63 @@ const Map<String, String> it_IT = {
   'no_messages': 'Non hai ancora messaggi',
 
   'join_horecah1': 'Unisciti al mondo horecah',
-  'join_horecah2': 'Troverai tutto quello di cui hai bisogno nel mondo degli Hotel, Restaurat e Catering.',
+  'join_horecah2':
+      'Troverai tutto quello di cui hai bisogno nel mondo degli Hotel, Restaurat e Catering.',
 
-   'login_label': 'Entra',
+  'login_label': 'Entra',
   'register_label': 'Registrati',
 
   'should_register1': 'Devi prima',
-  'should_register2': 'registrati',
+  'should_register2': 'accedere',
 
   //LOGIN
-  'login_title': 'Accedi con il mio account',
+  'login_title': 'Accedere con il mio account',
   'login_label1': 'Email',
   'login_label2': 'Inserisci email',
   'login_label3': 'Password',
   'login_label4': 'Inserisci password',
   'label_forgot_password': 'Non ricordi la password?',
 
-    //TABS
+  //TABS
   'tab_1': 'Home',
   'tab_2': 'Preferiti',
   'tab_3': 'Pubblica',
   'tab_4': 'Messaggi',
   'tab_5': 'Io',
 
-   //POST AD
+  //POST AD
   'ad_revision1': 'Annunciato in revisione',
-  'ad_revision2': 'Il tuo annuncio verrà esaminato da una persona per poterlo pubblicare',
+  'ad_revision2':
+      'Il tuo annuncio verrà esaminato da una persona per poterlo pubblicare',
 
-
-                    //DROPDOWNS TRADUCCIONES ADTYPE
+  //DROPDOWNS TRADUCCIONES ADTYPE
   'Sell': 'Vendo',
   'Buy': 'Compro',
   'Rent': 'Affitto',
   'Noleggio': 'Noleggio',
 
-
-   //ASESOR TRADUCCION
+  //ASESOR TRADUCCION
 
   'I am an adviser': 'Sono un Consulente',
   'Searching an adviser': 'Cerco un Consulente',
 
-
-   //PROVEEDOR TRADUCCION
+  //PROVEEDOR TRADUCCION
 
   'I am a supplier': 'Sono un Fornitore',
   'Searching a supplier': 'Cerco un Fornitore',
 
-
-   //EMPRENDEDOR TRADUCCION
+  //EMPRENDEDOR TRADUCCION
 
   'I am entrepreneur': 'Sono un Imprenditore',
   'Searching an entrepreneur': 'Cerco un Imprenditore',
 
-
-
-
-
-
-                       //DROPDOWNS TRADUCCIONES PEOPLETYPE
+  //DROPDOWNS TRADUCCIONES PEOPLETYPE
 
   'Private': 'Privato',
   'IVA': 'Partita IVA',
   'Agency': 'Azienda',
 
-
-
-
-
-
-
-                  //DROPDOWNS TRADUCCIONES CONDITION
+  //DROPDOWNS TRADUCCIONES CONDITION
 
   'Select': 'Selezionare',
   'New (never used)': 'Nuovo (mai usato)',
@@ -137,75 +125,22 @@ const Map<String, String> it_IT = {
   'Worn (but working)': 'Usurato (ma funzionante)',
   'Damaged (to be repaired)': 'Danneggiato (da riparare)',
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-                //SUBCATEGORIES TRADUCCIONES
-
+  //SUBCATEGORIES TRADUCCIONES
 
   //========MUEBLES=======
 
-
-
-
-
-
-
-
-
-
   //======ACTIVIDAD========
-
-
-
-
-
-
-
-
-
 
   //=========FRANQUICIA==============
 
-
-
-
-
-
-
-
-
   //=========PROVEEDOR=======
-
-
-
-
-
-
 
   //====ASESOR========
 
-
-
-
-
-
   //======EMPRENDEDOR=======
 
-
-
-
-  'Advertising material and stationery': 'Materiale pubblicitario e cancelleria',
+  'Advertising material and stationery':
+      'Materiale pubblicitario e cancelleria',
   'Baking, Cooking': 'Cottura, cucina ',
   'Baking, cooking and ovens': 'Cottura, cucina e forni',
   'Bar and Cafeteria': 'Bar e Caffetterie',
@@ -215,7 +150,8 @@ const Map<String, String> it_IT = {
   'Different services': 'Servizi diversi',
   'Discotheque': 'Disco',
   'Disposable materials': 'Materiali monouso',
-  'Electronics and other household appliances': 'Elettronica e altri elettrodomestici',
+  'Electronics and other household appliances':
+      'Elettronica e altri elettrodomestici',
   'Financial advisor': 'Consulente finanziario',
   'Food and raw materials': 'Alimenti e materie prime',
   'Food hygiene': 'Igiene degli alimenti',
@@ -235,30 +171,30 @@ const Map<String, String> it_IT = {
   'Kitchen utensils': 'Utensili per cucina',
   'Legal counsel': 'Consulente legale',
   'Marketing consultant': 'Consulente di marketing',
-  'Other shops (Bakery, Food, etc.)': 'Altri negozi (Panetteria, Alimentare, ecc)',
+  'Other shops (Bakery, Food, etc.)':
+      'Altri negozi (Panetteria, Alimentare, ecc)',
   'Pizzeria': 'Pizzeria',
   'Professional clothing and textiles': 'Abbigliamento e tessile professionale',
-  'Refrigeration, cold and conservation': 'Refrigerazione, freddo e conservazione',
+  'Refrigeration, cold and conservation':
+      'Refrigerazione, freddo e conservazione',
   'Restaurants and taverns': 'Ristoranti e trattorie',
   'Security consultant': 'Consulente per la sicurezza',
-  'Steel furniture and furnishings for kitchen': 'Mobili e arredo acciaio per cucina',
+  'Steel furniture and furnishings for kitchen':
+      'Mobili e arredo acciaio per cucina',
   'Wellness': 'Benessere',
-  
-
 
   'Appliance': '-Elettronica e altri elettrodomestici',
   '-Furniture and decoration': '-Mobili, arredo e decorazione',
   '-Kitchen appliances': '-Elettrodomestici per cucina',
-  '-Steel furniture and furnishings for kitchen': '-Mobili e arredo acciaio per cucina',
+  '-Steel furniture and furnishings for kitchen':
+      '-Mobili e arredo acciaio per cucina',
 
+  //UPDATE MESSAGES
 
+  'update_title': 'Aggiornamento del prodotto',
+  'loading_msg': 'Carica...',
+  'update_ok': 'Il prodotto è stato aggiornato correttamente',
+  'msg': 'Messaggio',
 
- //UPDATE MESSAGES
-
-    'update_title': 'Aggiornamento del prodotto',
-    'loading_msg': 'Carica...',
-    'update_ok': 'Il prodotto è stato aggiornato correttamente',
-    'msg': 'Messaggio',
-
-     'error_update': 'Impossibile aggiornare il prodotto',
+  'error_update': 'Impossibile aggiornare il prodotto',
 };

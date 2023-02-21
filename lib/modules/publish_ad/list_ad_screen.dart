@@ -15,16 +15,18 @@ import 'publish_ad.dart';
 
 class ListAdScreen extends GetView<PublishAdController> {
   bool? conCategoria = true;
-
+  Category cat = Category();
   ListAdScreen({this.conCategoria});
 
   @override
   Widget build(BuildContext context) {
+    String locale = TranslationService.locale.toString();
+
     return WillPopScope(
       onWillPop: () async {
         final homeController = Get.find<HomeController>();
         controller.currentCat.value = Category();
-        
+
         controller.currentCatStr = "";
         controller.setCategory(EnumCategoryList.none);
         controller.getPostAdHome().then((value) {
@@ -135,13 +137,27 @@ class ListAdScreen extends GetView<PublishAdController> {
                       Spacer(),
                       InkWell(
                         child: Container(
-                            width: 90,
-                            child: ButtonSecundary('filter'.tr,
-                                color: controller.currentCat.value.color)),
+                            width: 130,
+                            child: Obx(() =>
+                                controller.currentCat.value.id == null
+                                    ? ButtonSecundary('filter'.tr,
+                                        color: Colors.red)
+                                    : ButtonSecundary(
+                                        'filter'.tr +
+                                            ' ' +
+                                            (locale == "it_IT"
+                                                ? controller
+                                                    .currentCat.value.nameIt!
+                                                : locale == "en_US"
+                                                    ? controller.currentCat
+                                                        .value.nameEn!
+                                                    : controller.currentCat
+                                                        .value.nameEs!),
+                                        color: Colors.red))),
                         onTap: () async {
                           //TODO: CONSULTAR SUBCATEGORIAS.
                           if (this.conCategoria == false) {
-                            showCategories(context);
+                            await showCategories(context);
                           } else {
                             final subCategoriesFilters =
                                 await controller.getSubCategoriesByCategory();
@@ -155,15 +171,13 @@ class ListAdScreen extends GetView<PublishAdController> {
                   ),
                 ),
                 Expanded(
-                  child: ListView(
-                    children: [
+                  child: ListView(children: [
                     PostAdFilterProducts(
                         color: controller.currentCat.value.color == null
                             ? ColorConstants.principalColor
                             : controller.currentCat.value.color!),
                   ]),
                 ),
-
               ],
             ),
           ),
@@ -196,15 +210,18 @@ class ListAdScreen extends GetView<PublishAdController> {
                 child: Obx(
                   () => ListView.builder(
                     physics: BouncingScrollPhysics(),
-                    itemCount: controller.allCategories.length,
+                    itemCount: controller.allCategoriesFilter.length,
                     itemBuilder: (BuildContext context, int index) {
-                      Category category = controller.allCategories[index];
+                      Category category = controller.allCategoriesFilter[index];
                       return Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: ListTile(
                           onTap: () async {
                             controller.currentCat.value = category;
+                            print('category.toJson() -*-*-*-*-*-*');
+                            print(category.toJson());
                             controller.currentCatStr = category.nameEs!;
+                            this.controller.currentCat.refresh();
                             Navigator.pop(context);
                             final subCategoriesFilters =
                                 await controller.getSubCategoriesByCategory();
@@ -252,7 +269,7 @@ class ListAdScreen extends GetView<PublishAdController> {
           controller.currentAdTypeStr = "";
           controller.controllerPrice.text = "";
           controller.controllerPriceMax.text = "";
-          
+
           print("Back!!");
           return true;
         },
@@ -366,7 +383,7 @@ class ListAdScreen extends GetView<PublishAdController> {
                           EnumCategoryList.furniture)
                         TitlePrincipalAds('condition_ad'.tr),
                       if (controller.publishAdModel.value.currentCategory ==
-                          EnumCategoryList.furniture)   
+                          EnumCategoryList.furniture)
                         /* DropDownButtonForm(
                           listOptions: [
                             'Selezionare:',

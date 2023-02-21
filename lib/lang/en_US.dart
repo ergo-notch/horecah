@@ -1,7 +1,6 @@
 const Map<String, String> en_US = {
   'explore_our_sections': 'Everything you are looking for your business',
-  'what_looking_one':
-      'Are you selling something?',
+  'what_looking_one': 'Are you selling something?',
   'what_looking_two': 'Are you looking for a business partner?',
   'furniture': 'FURNITURE',
   'activity': 'ACTIVIDAD',
@@ -38,9 +37,7 @@ const Map<String, String> en_US = {
   'edit_ad': 'Edit ad',
   'contact_ad': 'Contact',
 
-
-
-    //FILTROS y ListAd Screen
+  //FILTROS y ListAd Screen
   'apply': 'Apply',
   'filter': 'Filters',
   'search_anything': 'Look for anything',
@@ -54,22 +51,19 @@ const Map<String, String> en_US = {
   'label5_nav': 'Me',
   'my_account': 'My account',
 
-
   'no_favorites': 'No favorites ads',
   'no_messages': 'You do not have messages',
 
   'join_horecah1': 'Join the horecah world',
-  'join_horecah2': 'You will find everything you need in the world of Hotels, Restaurat and Catering.',
-  
+  'join_horecah2':
+      'You will find everything you need in the world of Hotels, Restaurat and Catering.',
+
   'login_label': 'Login',
-  
+
   'register_label': 'Register',
 
   'should_register1': 'You need to be',
   'should_register2': 'registered',
-
-
-
 
   //LOGIN
   'login_title': 'Sign in with my account ',
@@ -78,7 +72,6 @@ const Map<String, String> en_US = {
   'login_label3': 'Password',
   'login_label4': 'Enter your password',
   'label_forgot_password': 'Forgot your password?',
-
 
   //TABS
   'tab_1': 'Home',
@@ -89,34 +82,15 @@ const Map<String, String> en_US = {
 
   //POST AD
   'ad_revision1': 'Ad under review',
-  'ad_revision2': 'Your ad will be reviewed by a person to be able to publish it',
+  'ad_revision2':
+      'Your ad will be reviewed by a person to be able to publish it',
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                   //DROPDOWNS TRADUCCIONES ADTYPE
+  //DROPDOWNS TRADUCCIONES ADTYPE
   'Sell': 'Sell',
   'Buy': 'Buy',
   'Rent': 'Rent',
   'Noleggio': 'Rent',
-  
+
   //ASESOR TRADUCCION
 
   'I am an adviser': 'I am an adviser',
@@ -127,27 +101,18 @@ const Map<String, String> en_US = {
   'I am a supplier': 'I am a supplier',
   'Searching a supplier': 'Searching a supplier',
 
-   //EMPRENDEDOR TRADUCCION
+  //EMPRENDEDOR TRADUCCION
 
   'I am entrepreneur': 'I am entrepreneur',
   'Searching an entrepreneur': 'Searching an entrepreneur',
 
-
-
-
-
-
-
-              //DROPDOWNS TRADUCCIONES PEOPLETYPE
+  //DROPDOWNS TRADUCCIONES PEOPLETYPE
 
   'Private': 'Private',
   'IVA': 'IVA',
   'Agency': 'Agency',
 
-
-
-
-                //DROPDOWNS TRADUCCIONES CONDITION
+  //DROPDOWNS TRADUCCIONES CONDITION
 
   'Select': 'Select',
   'New (never used)': 'New (never used)',
@@ -155,138 +120,77 @@ const Map<String, String> en_US = {
   'Good (normal usage)': 'Good (normal usage)',
   'Worn (but working)': 'Worn (but working)',
   'Damaged (to be repaired)': 'Damaged (to be repaired)',
- 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                //SUBCATEGORIES TRADUCCIONES
-
+  //SUBCATEGORIES TRADUCCIONES
 
   //========MUEBLES=======
 
-'Baking, Cooking': 'Baking, Cooking',
-'Baking, cooking and ovens': 'Baking, cooking and ovens',
-'Furniture and decoration': 'Furniture and decoration',
-'Electronics and other household appliances': 'Electronics and other household appliances',
-'Kitchen appliances': 'Kitchen appliances',
-'Kitchen utensils': 'Kitchen utensils',
-'Steel furniture and furnishings for kitchen': 'Steel furniture and furnishings for kitchen',
-'Refrigeration, cold and conservation': 'Refrigeration, cold and conservation',
-
+  'Baking, Cooking': 'Baking, Cooking',
+  'Baking, cooking and ovens': 'Baking, cooking and ovens',
+  'Furniture and decoration': 'Furniture and decoration',
+  'Electronics and other household appliances':
+      'Electronics and other household appliances',
+  'Kitchen appliances': 'Kitchen appliances',
+  'Kitchen utensils': 'Kitchen utensils',
+  'Steel furniture and furnishings for kitchen':
+      'Steel furniture and furnishings for kitchen',
+  'Refrigeration, cold and conservation':
+      'Refrigeration, cold and conservation',
 
   //======ACTIVIDAD========
-'Bar and Cafeteria': 'Bar and Cafeteria',
-'Catering and cooking': 'Catering and cooking',
-'Discotheque': 'Discotheque',
-'Food laboratory': 'Food laboratory',
-'Fun, disco': 'Fun, disco',
-'Gastronomy and Rotisserie': 'Gastronomy and Rotisserie',
-'Hotels and other accommodations': 'Hotels and other accommodations',
-'Kiosks': 'Kiosks',
-'Ice cream and pastry shops': 'Ice cream and pastry shops',
-
-
-
+  'Bar and Cafeteria': 'Bar and Cafeteria',
+  'Catering and cooking': 'Catering and cooking',
+  'Discotheque': 'Discotheque',
+  'Food laboratory': 'Food laboratory',
+  'Fun, disco': 'Fun, disco',
+  'Gastronomy and Rotisserie': 'Gastronomy and Rotisserie',
+  'Hotels and other accommodations': 'Hotels and other accommodations',
+  'Kiosks': 'Kiosks',
+  'Ice cream and pastry shops': 'Ice cream and pastry shops',
 
   //=========FRANQUICIA==============
 
-'Pizzeria': 'Pizzeria',
-'Other shops (Bakery, Food, etc.)': 'Other shops (Bakery, Food, etc.)',
-'Restaurants and taverns': 'Restaurants and taverns',
-
-
-
-
+  'Pizzeria': 'Pizzeria',
+  'Other shops (Bakery, Food, etc.)': 'Other shops (Bakery, Food, etc.)',
+  'Restaurants and taverns': 'Restaurants and taverns',
 
   //=========PROVEEDOR=======
-'Cleaning and detergents': 'Cleaning and detergents',
-'Disposable materials': 'Disposable materials',
-'Food and raw materials': 'Food and raw materials',
-'Job security': 'Job security',
-'Professional clothing and textiles': 'Professional clothing and textiles',
-'Advertising material and stationery': 'Advertising material and stationery',
-'Food packaging': 'Food packaging',
-
+  'Cleaning and detergents': 'Cleaning and detergents',
+  'Disposable materials': 'Disposable materials',
+  'Food and raw materials': 'Food and raw materials',
+  'Job security': 'Job security',
+  'Professional clothing and textiles': 'Professional clothing and textiles',
+  'Advertising material and stationery': 'Advertising material and stationery',
+  'Food packaging': 'Food packaging',
 
   //====ASESOR========
-'Business advisor': 'Business advisor',
-'Financial advisor': 'Financial advisor',
-'Food hygiene': 'Food hygiene',
-'Geometry / Architecture and Design': 'Geometry / Architecture and Design',
-'IT technicians': 'IT technicians',
-'Legal counsel': 'Legal counsel',
-'Marketing consultant': 'Marketing consultant',
-'Security consultant': 'Security consultant',
-
-
+  'Business advisor': 'Business advisor',
+  'Financial advisor': 'Financial advisor',
+  'Food hygiene': 'Food hygiene',
+  'Geometry / Architecture and Design': 'Geometry / Architecture and Design',
+  'IT technicians': 'IT technicians',
+  'Legal counsel': 'Legal counsel',
+  'Marketing consultant': 'Marketing consultant',
+  'Security consultant': 'Security consultant',
 
   //======EMPRENDEDOR=======
   'Hotellerie and hotel structures': 'Hotellerie and hotel structures',
   'Wellness': 'Wellness',
 
-
-
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-  
-  
   'Different services': 'Different services',
-  
+
   'Appliance': '-Electronics and other household appliances',
   '-Furniture and decoration': '-Furniture and decoration',
   '-Kitchen appliances': '-Kitchen appliances',
-  '-Steel furniture and furnishings for kitchen': '-Steel furniture and furnishings for kitchen',
+  '-Steel furniture and furnishings for kitchen':
+      '-Steel furniture and furnishings for kitchen',
 
+  //UPDATE MESSAGES
 
+  'update_title': 'Updating product',
+  'loading_msg': 'Loading...',
+  'update_ok': 'Product updated successfully',
+  'msg': 'Message',
 
-
-
-
-
-
-
-
-
-
-
-
-
-    //UPDATE MESSAGES
-
-    'update_title': 'Updating product',
-    'loading_msg': 'Loading...',
-    'update_ok': 'Product updated successfully',
-    'msg': 'Message',
-
-    'error_update': 'Failed to update product',
-
- 
-
+  'error_update': 'Failed to update product',
 };

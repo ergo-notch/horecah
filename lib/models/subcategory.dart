@@ -69,8 +69,7 @@ class SubCategory {
         "category": category?.toMap(),
       };
 
-
-       static List<SubCategory> fromListJson(List<dynamic> listSubCategory) {
+  static List<SubCategory> fromListJson(List<dynamic> listSubCategory) {
     List<SubCategory> subcategories = [];
     for (var item in listSubCategory) {
       subcategories.add(SubCategory.fromMap(item));
@@ -80,19 +79,18 @@ class SubCategory {
 }
 
 class Category {
-  Category({
-    this.id,
-    this.language,
-    this.createdAt,
-    this.updatedAt,
-    this.slug,
-    this.nameEn,
-    this.nameEs,
-    this.nameIt,
-    this.color,
-    this.icon,
-    this.type
-  });
+  Category(
+      {this.id,
+      this.language,
+      this.createdAt,
+      this.updatedAt,
+      this.slug,
+      this.nameEn,
+      this.nameEs,
+      this.nameIt,
+      this.color,
+      this.icon,
+      this.type});
 
   final int? id;
   final dynamic? language;
@@ -111,18 +109,17 @@ class Category {
   String toJson() => json.encode(toMap());
 
   factory Category.fromMap(Map<String, dynamic> json) => Category(
-        id: json["id"],
-        language: json["language"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        slug: json["slug"],
-        nameEn: json["name_en"],
-        nameEs: json["name_es"],
-        nameIt: json["name_it"],
-        color: json["color"]!=null?hexToColor(json["color"]):null,
-        icon: IconData(json["icon"], fontFamily: "MaterialIcons"),
-        type: json["type"]
-      );
+      id: json["id"],
+      language: json["language"],
+      createdAt: DateTime.parse(json["created_at"]),
+      updatedAt: DateTime.parse(json["updated_at"]),
+      slug: json["slug"],
+      nameEn: json["name_en"],
+      nameEs: json["name_es"],
+      nameIt: json["name_it"],
+      color: json["color"] != null ? hexToColor(json["color"]) : null,
+      icon: IconData(json["icon"] ?? '', fontFamily: "MaterialIcons"),
+      type: json["type"]);
 
   Map<String, dynamic> toMap() => {
         "id": id,
@@ -133,20 +130,22 @@ class Category {
         "name_en": nameEn,
         "name_es": nameEs,
         "name_it": nameIt,
-        "color": color!=null ? '#${color?.value.toRadixString(16)}':null,
-        "icon": icon!.codePoint,
+        "color": color != null ? '#${color?.value.toRadixString(16)}' : null,
+        "icon": icon?.codePoint,
         "type": type
       };
 
-
-
-  String get name{
+  String get name {
     String? local = TranslationService.locale.toString();
-    switch(local){
-      case 'en_US': return this.nameEn ?? "no-name";
-      case 'it_IT':return this.nameIt ?? 'no-name';
-      case 'es_ES':return this.nameEs ?? 'no-name';
-      default:return "no-name";
+    switch (local) {
+      case 'en_US':
+        return this.nameEn ?? "no-name";
+      case 'it_IT':
+        return this.nameIt ?? 'no-name';
+      case 'es_ES':
+        return this.nameEs ?? 'no-name';
+      default:
+        return "no-name";
     }
   }
 

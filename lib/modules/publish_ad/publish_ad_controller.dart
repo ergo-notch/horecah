@@ -28,14 +28,13 @@ class PublishAdController extends GetxController {
           currenTypeAd: EnumTypeAdList.none,
           currentSubCategory: EnumSubCategoryList.none)
       .obs;
-      //PRODUCTS===========
+  //PRODUCTS===========
   RxList<Products> allProducts = RxList<Products>();
   RxList<Products> filtersProducts = RxList<Products>([]);
   RxList<Products> recentlyProducts = RxList<Products>();
   RxList<Products> likedProducts = RxList<Products>();
+  RxList<Products> visitProducts = RxList<Products>();
   RxList<Products> myProducts = RxList<Products>();
-
-
 
   var imagesToUpload = List<XFile>.filled(6, XFile('')).obs;
   var controllerTitle = TextEditingController();
@@ -68,13 +67,13 @@ class PublishAdController extends GetxController {
   String currentAdTypeStr = "";
 
   var allCategories = RxList<Category>([]);
+  var allCategoriesFilter = RxList<Category>([]);
   var categoriesReady = false.obs;
-
 
   var productsRecentlyReady = false.obs;
 
   PublishAdController({required this.apiRepository, required this.userStrapi});
-  
+
   @override
   void onInit() async {
     super.onInit();
@@ -322,7 +321,6 @@ class PublishAdController extends GetxController {
   }
 
   Future<void> postAd(BuildContext context) async {
-
     String locale = TranslationService.locale.toString();
 
     AppFocus.unfocus(context);
@@ -348,9 +346,7 @@ class PublishAdController extends GetxController {
             File(element.path), 'product', 'multimedia', newPost!);
       }
     });
-    CommonWidget.showModalInfo(
-            'ad_revision2'.tr,
-            title: 'ad_revision1'.tr)
+    CommonWidget.showModalInfo('ad_revision2'.tr, title: 'ad_revision1'.tr)
         .then((value) {
       cleanControllers();
       clearData();
@@ -396,16 +392,84 @@ class PublishAdController extends GetxController {
   Future<void> getAllCategories() async {
     categoriesReady.value = false;
     this.allCategories.value = (await apiRepository.getAllCategories());
+
+    this.allCategoriesFilter.value = this.allCategories.value;
+
+    this.allCategoriesFilter.value.sort((a, b) {
+      return a.id!.toString().compareTo(b.id!.toString());
+    });
+
+    this.allCategories.value = move(this.allCategories.value);
+
     this.allCategories.refresh();
     categoriesReady.value = true;
+  }
+
+  List<Category> move(List<Category> input) {
+    var from = input.indexWhere((element) => element.nameIt == 'ATTIVITÀ');
+    List<Category> jsFrom =
+        input.where((element) => element.nameIt == 'ATTIVITÀ').toList();
+    var to = input.indexWhere((element) => element.nameIt == 'FRANCHISING');
+    List<Category> toJs =
+        input.where((element) => element.nameIt == 'FRANCHISING').toList();
+    input[from] = toJs[0];
+    input[to] = jsFrom[0];
+
+    var from1 = input.indexWhere((element) => element.nameIt == 'CONSULENTI');
+    List<Category> jsFrom1 =
+        input.where((element) => element.nameIt == 'CONSULENTI').toList();
+    var to1 = input.indexWhere((element) => element.nameIt == 'IMPRENDITORI');
+    List<Category> toJs1 =
+        input.where((element) => element.nameIt == 'IMPRENDITORI').toList();
+    input[from1] = toJs1[0];
+    input[to1] = jsFrom1[0];
+    return input;
+  }
+
+  List<Category> moveFilters(List<Category> input) {
+    var from = input.indexWhere((element) =>
+        element.nameIt!.toLowerCase() == 'FRANCHISING'.toLowerCase());
+
+    List<Category> jsFrom = input
+        .where((element) =>
+            element.nameIt!.toLowerCase() == 'ATTIVITÀ'.toLowerCase())
+        .toList();
+    var to = input.indexWhere((element) =>
+        element.nameIt!.toLowerCase() == 'FRANCHISING'.toLowerCase());
+    List<Category> toJs = input
+        .where((element) =>
+            element.nameIt!.toLowerCase() == 'FRANCHISING'.toLowerCase())
+        .toList();
+    input[from] = toJs[0];
+    input[to] = jsFrom[0];
+
+    var from1 = input.indexWhere((element) => element.nameIt == 'CONSULENTI');
+    List<Category> jsFrom1 =
+        input.where((element) => element.nameIt == 'CONSULENTI').toList();
+    var to1 = input.indexWhere((element) => element.nameIt == 'IMPRENDITORI');
+    List<Category> toJs1 =
+        input.where((element) => element.nameIt == 'IMPRENDITORI').toList();
+    input[from1] = toJs1[0];
+    input[to1] = jsFrom1[0];
+    return input;
+  }
+
+  List<T> splice<T>(List<T> list, int index,
+      [num howMany = 0, /*<T | List<T>>*/ elements]) {
+    var endIndex = index + howMany.truncate();
+    list.removeRange(index, endIndex >= list.length ? list.length : endIndex);
+    if (elements != null)
+      list.insertAll(index, elements is List<T> ? elements : <T>[elements]);
+    return list;
   }
 
   Future<List<String>> getSubCategoriesByCategory() async {
     if (this.currentCat.value.id == null) return [];
 
-    final subCategories = await apiRepository.getSubCategoriesByCategory(this.currentCat.value.nameEs!);
+    final subCategories = await apiRepository
+        .getSubCategoriesByCategory(this.currentCat.value.nameEs!);
     List<String> subCategoriesFiltersList = [];
-    print("Yair: "+'Select'.tr);
+    print("Yair: " + 'Select'.tr);
     subCategoriesFiltersList.add('Select'.tr);
     subCategories.forEach((subCat) {
       String locale = TranslationService.locale.toString();
@@ -539,7 +603,7 @@ class PublishAdController extends GetxController {
       case "es_ES":
         list = esListPeopleType;
         break;
-         case "es_US":
+      case "es_US":
         list = esListPeopleType;
         break;
       default:
@@ -548,15 +612,11 @@ class PublishAdController extends GetxController {
     return enListPeopleType;
   }
 
-
-
-
-
-   List<String> getListCondition() {
+  List<String> getListCondition() {
     String lang = TranslationService.locale.toString();
     List<String> list = [];
 
-   /* switch (lang) {
+    /* switch (lang) {
       case "it_IT":
         list = itListCondition;
         break;
@@ -575,29 +635,25 @@ class PublishAdController extends GetxController {
     return enListCondition;
   }
 
-
-
-
-
   List<String> getListAdType() {
     String lang = TranslationService.locale.toString();
     List<String> list = [];
 
-     this.currentCatStr == "MUEBLES"
-            ? list = mueblesListEn
-            : this.currentCatStr == "ASESOR"
-                ? list = asesorListEn
-                : this.currentCatStr == "ACTIVIDAD"
+    this.currentCatStr == "MUEBLES"
+        ? list = mueblesListEn
+        : this.currentCatStr == "ASESOR"
+            ? list = asesorListEn
+            : this.currentCatStr == "ACTIVIDAD"
+                ? list = buyList
+                : this.currentCatStr == "FRANQUICIA"
                     ? list = buyList
-                    : this.currentCatStr == "FRANQUICIA"
-                        ? list = buyList
-                        : this.currentCatStr == "PROVEEDOR"
-                            ? list = proveedorListEn
-                            : this.currentCatStr == "EMPRENDEDOR"
-                                ? list = emprendedorListEn
-                                : list = buyListEn;
+                    : this.currentCatStr == "PROVEEDOR"
+                        ? list = proveedorListEn
+                        : this.currentCatStr == "EMPRENDEDOR"
+                            ? list = emprendedorListEn
+                            : list = buyListEn;
 
-   /* switch (lang) {
+    /* switch (lang) {
       case "it_IT":
         this.currentCatStr == "MUEBLES"
             ? list = mueblesListIt
@@ -687,7 +743,7 @@ class PublishAdController extends GetxController {
 
     final products = await apiRepository.getPosts(category: category);
 
-    if( products != null ){
+    if (products != null) {
       this.allProducts.value = products;
       this.allProducts.refresh();
       postReady.value = true;
@@ -704,50 +760,51 @@ class PublishAdController extends GetxController {
     postReady.value = false;
 
     final products = await apiRepository.getPosts(category: category);
-     postReady.value = true;
-    if ( products != null ){
+    postReady.value = true;
+    if (products != null) {
       this.allProducts.value = products;
       this.allProducts.refresh();
-      
     }
 
     /*this.allProducts.value = (await apiRepository.getPosts(category: category)  )!;
     this.allProducts.refresh();*/
-   
   }
 
-
-   Future<void> getPostAdToFilterScreen() async {
+  Future<void> getPostAdToFilterScreen() async {
     String category = this.currentCat.value.nameEs ?? "";
-
-    
 
     print("=============CATEGORY ================= $category");
 
     //postReady.value = false;
 
-    this.filtersProducts.value = (await apiRepository.getPosts(category: category))!;
+    this.filtersProducts.value =
+        (await apiRepository.getPosts(category: category))!;
     this.filtersProducts.refresh();
     //postReady.value = true;
   }
 
-
-  Future<bool> getRecentlyProducts() async {
+  Future<bool> getRecentlyProducts(controller) async {
     productsRecentlyReady.value = false;
-
-    final productsRecent = await apiRepository.getRecentlyProducts(this.userStrapi.value!.id!);
+    final productsRecent;
+    if (controller.userLogued()) {
+      // VALIDAR CUADNO NO ESTE LOGUEADO VAYA POR LA LISTA DE RECIENTES LOCAL
+      productsRecent =
+          await apiRepository.getRecentlyProducts(this.userStrapi.value!.id!);
+    } else {
+      productsRecent = await apiRepository.getProductsVisitLocal();
+    }
 
     var isOkay = false;
 
-    if(productsRecent != null) {
+    if (productsRecent != null) {
       this.recentlyProducts.value = productsRecent;
       this.recentlyProducts.refresh();
-       productsRecentlyReady.value = true;
-       isOkay = true;
+      productsRecentlyReady.value = true;
+      isOkay = true;
     }
     return isOkay;
 
-   /* this.recentlyProducts.value = (await apiRepository.getRecentlyProducts(this.userStrapi.value!.id!))!;
+    /* this.recentlyProducts.value = (await apiRepository.getRecentlyProducts(this.userStrapi.value!.id!))!;
     this.recentlyProducts.refresh();
     productsRecentlyReady.value = true;
     return true;*/
@@ -755,6 +812,11 @@ class PublishAdController extends GetxController {
 
   Future<bool> addToRecentlyProducts(int productId) async {
     bool result = (await apiRepository.addToRecentlyProducts(productId))!;
+    return result;
+  }
+
+  Future<bool> addToRecentlyProductsLocal(product) async {
+    bool result = (await apiRepository.addToRecentlyProductsLocal(product))!;
     return result;
   }
 
@@ -767,7 +829,7 @@ class PublishAdController extends GetxController {
     postReady.value = true;*/
   }*/
 
- /* void getPostListAd(EnumCategoryList enumCategoryList) {
+  /* void getPostListAd(EnumCategoryList enumCategoryList) {
     this.allProducts.clear();
     setCategory(enumCategoryList);
     getPostAd();
@@ -778,11 +840,11 @@ class PublishAdController extends GetxController {
 
     final products = await apiRepository.getAllPostsDraftPublished();
 
-    if( products != null ){
+    if (products != null) {
       this.allProducts.value = products;
       this.allProducts.refresh();
-    postReady.value = true;
-    } 
+      postReady.value = true;
+    }
 
     /*this.allProducts.value = (await apiRepository.getAllPostsDraftPublished()  )!;
     this.allProducts.refresh();
@@ -829,15 +891,31 @@ class PublishAdController extends GetxController {
   /*
   * START Local likes methods
   * */
+  addVisitLocal(Products product) async {
+    apiRepository.addVisitLocal(product);
+    print("local viti added: " + product.id.toString());
+  }
+
+  getProductsVisitLocal() {
+    this.visitProducts.value = apiRepository.getProductsVisitLocal();
+  }
+
+  /*
+  * END Local likes methods
+  * */
+
+  /*
+  * START Local likes methods
+  * */
 
   addFavoriteLocal(Products product) async {
     apiRepository.addLikeLocal(product);
-    print("local like added: "+product.id.toString());
+    print("local like added: " + product.id.toString());
   }
 
   removeFavoriteLocal(Products product) async {
     apiRepository.removeLikeLocal(product);
-    print("local like removed: "+product.id.toString());
+    print("local like removed: " + product.id.toString());
   }
 
   bool isFavoriteLocal(Products product) {
@@ -851,7 +929,6 @@ class PublishAdController extends GetxController {
   /*
   * END Local likes methods
   * */
-
 
   Future<void> getPostAdFilter() async {
     /* String cat = getActualCateogry();
@@ -885,7 +962,7 @@ class PublishAdController extends GetxController {
             query += "&sub_category.name_es=${this.currentSubCatStr}";
           }
           break;
-           case "es_US":
+        case "es_US":
           {
             query += "&sub_category.name_es=${this.currentSubCatStr}";
           }
@@ -940,7 +1017,7 @@ class PublishAdController extends GetxController {
           }
         }
         break;
-         case "es_US":
+      case "es_US":
         {
           if (currenPeopleTypeStr == "Privado") {
             query +=
@@ -968,12 +1045,13 @@ class PublishAdController extends GetxController {
         currentAdTypeStr == "Affitto" ||
         currentAdTypeStr == "Noleggio") {
       if (currentCat.value.nameEs != "MUEBLES") {
-        
-        query += "&_where[ad_type_contains]=Rent&_where[ad_type_contains]=Rento&_where[ad_type_contains]=Affitto";
+        query +=
+            "&_where[ad_type_contains]=Rent&_where[ad_type_contains]=Rento&_where[ad_type_contains]=Affitto";
       } else {
         print("CATEGORIA MUEBLES============");
-       
-        query += "&_where[ad_type_contains]=Rent&_where[ad_type_contains]=Rento&_where[ad_type_contains]=Noleggio";
+
+        query +=
+            "&_where[ad_type_contains]=Rent&_where[ad_type_contains]=Rento&_where[ad_type_contains]=Noleggio";
       }
     } else if (currentAdTypeStr == "I am a supplier" ||
         currentAdTypeStr == "Soy proveedor" ||
@@ -1031,7 +1109,7 @@ class PublishAdController extends GetxController {
 
     final products = await apiRepository.getPostsByFilter(query);
 
-    if( products != null ) {
+    if (products != null) {
       this.filtersProducts.value = products;
       this.filtersProducts.refresh();
     }
@@ -1106,113 +1184,75 @@ class PublishAdController extends GetxController {
     cleanControllers();
   }
 
-
-
-
-
-
-
-
-
-
   void updateProduct() async {
-
-    Get.defaultDialog(  
+    Get.defaultDialog(
       title: "update_title".tr,
-      titleStyle: TextStyle( fontSize: 18.sp ),
+      titleStyle: TextStyle(fontSize: 18.sp),
       content: Center(
         child: CircularProgressIndicator(),
       ),
-      
     );
 
     try {
-
       print("Yair: update post");
 
       var updatedPost = await apiRepository.updateProduct(
-        Products(
-            title: controllerTitle.text,
-            description: controllerDescription.text,
-            city: city,
-            currency: 'euro',
-            peopleType: this.currenPeopleTypeStr,
-            price: double.parse(controllerPrice.text),
-            phoneNumber: controllerPhone.text.isNotEmpty
-                ? int.parse(controllerPhone.text)
-                : 0,
-            statusProduct: this.statusProduct,
-            status: 'published',
-            adType: this.currentAdTypeStr,
-            category: getActualCateogry(),
-            subCategory: await getSubCatToPost(this.currentSubCatStr),
-            user: this.userStrapi.value),
-        this.actualProduct!.id!);
+          Products(
+              title: controllerTitle.text,
+              description: controllerDescription.text,
+              city: city,
+              currency: 'euro',
+              peopleType: this.currenPeopleTypeStr,
+              price: double.parse(controllerPrice.text),
+              phoneNumber: controllerPhone.text.isNotEmpty
+                  ? int.parse(controllerPhone.text)
+                  : 0,
+              statusProduct: this.statusProduct,
+              status: 'published',
+              adType: this.currentAdTypeStr,
+              category: getActualCateogry(),
+              subCategory: await getSubCatToPost(this.currentSubCatStr),
+              user: this.userStrapi.value),
+          this.actualProduct!.id!);
 
-    print("Yair producto:"+json.encode(updatedPost));
+      print("Yair producto:" + json.encode(updatedPost));
 
-        //termino update
+      //termino update
 
-    imagesToUpload.forEach((element) async {
-      print("Imagen!");
-      if (element.path != '') {
-        var imageUploaded = await apiRepository.uploadImage(
-            File(element.path), 'product', 'multimedia', updatedPost!);
-      }
-    });
-    Get.back();
-    //MOSTRAR SNACKBAR
-    
-    
-     Get.snackbar( "msg".tr , "update_ok".tr,
+      imagesToUpload.forEach((element) async {
+        print("Imagen!");
+        if (element.path != '') {
+          var imageUploaded = await apiRepository.uploadImage(
+              File(element.path), 'product', 'multimedia', updatedPost!);
+        }
+      });
+      Get.back();
+      //MOSTRAR SNACKBAR
+
+      Get.snackbar("msg".tr, "update_ok".tr,
           backgroundColor: ColorConstants.principalColor,
           colorText: Colors.white,
           duration: Duration(seconds: 5),
-          snackPosition: SnackPosition.BOTTOM,
-          snackbarStatus: (status) async {
-        if (status == SnackbarStatus.CLOSED)  {
+          snackPosition: SnackPosition.BOTTOM, snackbarStatus: (status) async {
+        if (status == SnackbarStatus.CLOSED) {
           setCategory(publishAdModel.value.currentCategory);
-    getMyPostListAd();
-    final prodUpdated = await apiRepository.getProduct(updatedPost);
-    setCurrentProduct(prodUpdated);
-    //setActualProduct(updatedPost!);
-    Get.back();
-    cleanControllers();
+          getMyPostListAd();
+          final prodUpdated = await apiRepository.getProduct(updatedPost);
+          setCurrentProduct(prodUpdated);
+          //setActualProduct(updatedPost!);
+          Get.back();
+          cleanControllers();
         }
       });
-
-      
     } catch (e) {
-      print("Yair Error: "+e.toString());
-       Get.snackbar( "Error" , "error_update".tr,
+      print("Yair Error: " + e.toString());
+      Get.snackbar("Error", "error_update".tr,
           backgroundColor: ColorConstants.principalColor,
           colorText: Colors.white,
           duration: Duration(seconds: 5),
           snackPosition: SnackPosition.BOTTOM);
-         
     }
-
-
-
-
-
-    
-
-    
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   var currentproduct = Products(
           title: "",
