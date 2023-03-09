@@ -317,7 +317,7 @@ class MainTab extends GetView<HomeController> {
                   product.title,
                   product.description,
                   product.price.round().toString(),
-                  product.multimedia![0].url,
+                  product.multimedia?[0].url ?? '',
                   product),
               onTap: () async {
                 postAdController.setCurrentProduct(product);

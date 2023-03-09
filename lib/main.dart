@@ -29,7 +29,7 @@ class App extends StatelessWidget {
       designSize: Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_) => GetMaterialApp(
+      builder: (_, child) => GetMaterialApp(
         debugShowCheckedModeBanner: false,
         enableLog: true,
         initialRoute: Routes.SPLASH,

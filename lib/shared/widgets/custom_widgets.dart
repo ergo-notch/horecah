@@ -249,7 +249,7 @@ CardItemAdLike(String title, String description, String price, String imageUrl,
   if (homeController.userLogued()) {
     if (product.likes != null && product.likes!.length > 0) {
       for (var likeProd in product.likes!) {
-        if (likeProd.userId == controller.userStrapi.value!.id) {
+        if (likeProd.userId == controller.userStrapi.value?.id) {
           like = likeProd;
         }
       }

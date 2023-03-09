@@ -785,11 +785,11 @@ class PublishAdController extends GetxController {
 
   Future<bool> getRecentlyProducts(controller) async {
     productsRecentlyReady.value = false;
-    final productsRecent;
+    List<Products>? productsRecent;
     if (controller.userLogued()) {
       // VALIDAR CUADNO NO ESTE LOGUEADO VAYA POR LA LISTA DE RECIENTES LOCAL
       productsRecent =
-          await apiRepository.getRecentlyProducts(this.userStrapi.value!.id!);
+          await apiRepository.getRecentlyProducts(this.userStrapi.value?.id);
     } else {
       productsRecent = await apiRepository.getProductsVisitLocal();
     }
@@ -797,6 +797,7 @@ class PublishAdController extends GetxController {
     var isOkay = false;
 
     if (productsRecent != null) {
+      productsRecent = productsRecent.reversed.toList();
       this.recentlyProducts.value = productsRecent;
       this.recentlyProducts.refresh();
       productsRecentlyReady.value = true;
